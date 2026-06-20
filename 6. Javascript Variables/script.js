@@ -796,3 +796,84 @@ console.log("+" + "-".repeat(nameW + 2) + "+" + "-".repeat(rollW + 2) + "+" + "-
 ভার্টিক্যাল বার (|): প্রতিটি ডাটার মাঝে | ব্যবহার করায় কলামগুলো আলাদাভাবে চেনা যাচ্ছে।
 Template Literals: ব্যাকটিক (``) ব্যবহার করে ${} এর ভেতরে padEnd বসানো হয়েছে, যাতে কোডটি দেখতে ক্লিন লাগে।
 স্পেসিং: padEnd এর আগে এবং পরে একটি করে অতিরিক্ত স্পেস  (যেমন: | ${...} |), যাতে লেখাগুলো বর্ডারের সাথে লেগে না যায়।
+
+
+
+ব্যাকটিক বা টেমপ্লেট লিটেরাল ( )-এর ভেতরেও চাইলে মেথড বা ফাংশন হিসেবে সরাসরি .padEnd() ব্যবহার।
+
+// ১. ১৫টি আইটেমের নাম ভ্যারিয়েবলে আলাদা করে নিলাম
+const i1 = "Miniket Rice (5kg)";
+const i2 = "Mustard Oil (1L)";
+const i3 = "Masoor Dal (1kg)";
+const i4 = "Sugar (1kg)";
+const i5 = "Salt (1kg)";
+const i6 = "Rupchanda Oil (2L)";
+const i7 = "Aata (2kg)";
+const i8 = "Teaser Tea (400g)";
+const i9 = "Powder Milk (500g)";
+const i10 = "Onion (1kg)";
+const i11 = "Garlic (500g)";
+const i12 = "Ginger (500g)";
+const i13 = "Turmeric Powder";
+const i14 = "Chili Powder";
+const i15 = "Dish Wash Liquid";
+
+// ২. ১৫টি আইটেমের দামও আলাদা করে নিলাম
+const p1 = "340.00 tk";
+const p2 = "220.00 tk";
+const p3 = "130.00 tk";
+const p4 = "115.00 tk";
+const p5 = "42.00 tk";
+const p6 = "330.00 tk";
+const p7 = "95.00 tk";
+const p8 = "125.00 tk";
+const p9 = "410.00 tk";
+const p10 = "75.00 tk";
+const p11 = "90.00 tk";
+const p12 = "110.00 tk";
+const p13 = "60.00 tk";
+const p14 = "65.00 tk";
+const p15 = "85.00 tk";
+
+// 🔥 ৩. একটি মাত্র console.log এবং ব্যাকটিকের ভেতর সব ভ্যারিয়েবল (i1-i15 এবং p1-p15) সেট
+console.log(`Product Name              | Price
+--------------------------------------
+${i1.padEnd(25, ".")} | ${p1}
+${i2.padEnd(25, ".")} | ${p2}
+${i3.padEnd(25, ".")} | ${p3}
+${i4.padEnd(25, ".")} | ${p4}
+${i5.padEnd(25, ".")} | ${p5}
+${i6.padEnd(25, ".")} | ${p6}
+${i7.padEnd(25, ".")} | ${p7}
+${i8.padEnd(25, ".")} | ${p8}
+${i9.padEnd(25, ".")} | ${p9}
+${i10.padEnd(25, ".")} | ${p10}
+${i11.padEnd(25, ".")} | ${p11}
+${i12.padEnd(25, ".")} | ${p12}
+${i13.padEnd(25, ".")} | ${p13}
+${i14.padEnd(25, ".")} | ${p14}
+${i15.padEnd(25, ".")} | ${p15}
+--------------------------------------`);
+
+Product Name              | Price
+--------------------------------------
+Miniket Rice (5kg)....... | 340.00 tk
+Mustard Oil (1L)......... | 220.00 tk
+Masoor Dal (1kg)......... | 130.00 tk
+Sugar (1kg).............. | 115.00 tk
+Salt (1kg)............... | 42.00 tk
+Rupchanda Oil (2L)....... | 330.00 tk
+Aata (2kg)............... | 95.00 tk
+Teaser Tea (400g)........ | 125.00 tk
+Powder Milk (500g)....... | 410.00 tk
+Onion (1kg).............. | 75.00 tk
+Garlic (500g)............ | 90.00 tk
+Ginger (500g)............ | 110.00 tk
+Turmeric Powder.......... | 60.00 tk
+Chili Powder............. | 65.00 tk
+Dish Wash Liquid......... | 85.00 tk
+--------------------------------------
+
+১. const দিয়ে মেমোরিতে আলাদা আলাদা ডাটা ব্লক তৈরি 
+২. ব্যাকটিকের ভেতর ${i1.padEnd(25, ".")} অংশে জাভাস্ক্রিপ্ট বাম পাশের নামটিকে ২৫টি ডট দিয়ে ফিলআপ করে।
+৩. ঠিক তার পাশেই পাইপলাইনের পর ${p1} লিখে দেওয়ায় নাম ও দাম মুখোমুখি বসে একদম প্রফেশনাল রূপ নেয়।
