@@ -132,6 +132,31 @@ Strict Mode: কোডে সবসময় "use strict"; মোড অন রা�
 
 
 
+function myName() {
+
+  let myFullName = "Mohammad";
+
+  console.log(myFullName);
+
+  myFullName = "Abdullah";
+
+  console.log(myFullName);
+
+}
+
+myName();
+
+
+১. console.log(myFullName) কেন ফাংশনের ভেতরে হলো?
+এর উত্তর লুকিয়ে আছে আগের শেখা Local Variable (লোকাল ভেরিয়েবল) কনসেপ্টের মধ্যে।
+
+ ফাংশনের ভেতরে : let myFullName = "Mohammad";
+যেহেতু ভেরিয়েবলটি ফাংশনের ভেতরে তৈরি করা হয়েছে, তাই এর ক্ষমতা বা স্কোপ শুধুমাত্র এই ফাংশনের ভেতরেই সীমাবদ্ধ।
+
+ফাংশনের ভেতরের ভেরিয়েবলকে প্রিন্ট বা দেখতে চাইলে console.log()-কে অবশ্যই ফাংশনের ভেতরেই লিখতে হবে। 
+যদি  এটিকে ফাংশনের বাইরে লিখা হত, তবে জাভাস্ক্রিপ্ট এরর দিত (Error: myFullName is not defined), কারণ বাইরে থেকে এই ভেরিয়েবলকে চেনাই যায় না।
+
+
 
 
 
