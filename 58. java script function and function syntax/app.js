@@ -8,12 +8,37 @@ function functionName (parameters) {
 }
 
 
+
+
+function functionName(parameters) {
+    // কোড ব্লক
+    return value; // অপশনাল
+}
+
+
+
+// ফাংশন ডিক্লারেশন
+function greet() {
+    console.log("Hello World!");
+}
+
+// ফাংশন কল
+greet(); // Output: Hello World!
+
+
+
+
+
 function myNames (name, country) {
   console.log("My name is" + " " + name + " " + "I'm come from" + " " + country)
 }
 
 myNames("Abdullah", "Bangladesh");
 myNames("Aziz", "Pakistan");
+myNames("Mohammad", "Kashmir");
+
+
+
 
 function myIntro () {
   console.log("I am Abdullah");
