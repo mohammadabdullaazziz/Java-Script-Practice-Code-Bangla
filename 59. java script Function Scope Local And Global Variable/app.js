@@ -290,6 +290,78 @@ console.log(secretData); // আউটপুট: আমি আসলে লোক
 
 
 
+
+
+
+
+let yourName = "Mohammad Aziz";
+let yourAge = 29;
+
+function yourSubject() {
+    let studentName = "Mohammad Arman";
+    console.log(yourName);
+    console.log(yourAge);
+    studentName = "Mohammad Arman Aziz";
+    console.log(studentName);
+}
+
+yourSubject();
+console.log(yourName);
+console.log(yourAge);
+console.log(studentName); // This will throw an error because studentName is not defined in this scope
+
+
+গ্লোবাল ভেরিয়েবল = সবার জন্য উন্মুক্ত
+
+লোকাল ভেরিয়েবল = শুধু নিজের ফাংশনের জন্য সীমাবদ্ধ
+
+ভেরিয়েবল যেখানে ডিক্লেয়ার করা হয়েছে, সেটাই তার স্কোপ নির্ধারণ করে।
+
+
+
+ফাংশনের ভিতরেও গ্লোবাল ভেরিয়েবল রিঅ্যাসাইন করা যায়
+
+let counter = 10;   // গ্লোবাল
+
+function changeGlobal() {
+    counter = 20;   // ✅ গ্লোবাল ভেরিয়েবল রিঅ্যাসাইন
+    console.log("Inside function:", counter);
+}
+
+changeGlobal();       // Output: Inside function: 20
+console.log(counter); // Output: 20 (বদলে গেছে!)
+
+
+
+গ্লোবাল ভেরিয়েবল রিঅ্যাসাইন না করে নতুন ভ্যালু অ্যাসাইন (ভুল)
+
+let globalVar = "আমি গ্লোবাল";
+
+function myFunction() {
+    globalVar = "ফাংশনে বদল";   // ✅ রিঅ্যাসাইন (ঠিক)
+    let globalVar = "ভুল";       // ❌ একই নামে নতুন ডিক্লেয়ারেশন (SyntaxError)
+}
+ফাংশনের ভিতরে let globalVar দিয়ে নতুন ডিক্লেয়ার করলে সেটা লোকাল ভেরিয়েবল হয়ে যায়, আর গ্লোবাল ভেরিয়েবল রিঅ্যাসাইন হয় না। এটা এড়িয়ে চলতে হবে।
+
+
+let userName = "Abdullah";    // গ্লোবাল
+
+function updateUser() {
+    userName = "Arman";    // ✅ রিঅ্যাসাইন
+    console.log("Updated name:", userName);
+}
+
+console.log("Before:", userName);   // Before: Abdullah
+updateUser();                       // Updated name: Arman
+console.log("After:", userName);    // After: Arman
+
+
+
+
+
+
+
+
 ব্লক স্কোপ (Block Scope)--------
 
 জাভাস্ক্রিপ্টে Block Scope (ব্লক স্কোপ) হলো ভেরিয়েবলের এমন একটি সীমানা বা দেয়াল, যার বাইরে ওই ভেরিয়েবলটির কোনো অস্তিত্ব থাকে না।
