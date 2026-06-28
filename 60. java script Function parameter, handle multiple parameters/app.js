@@ -13,20 +13,10 @@ Parameter = Placeholder (খালি জায়গা/ভেরিয়েবল)
 
 Argument = Actual Value (আসল ডাটা)
 
+console.log() = আউটপুট দেখানোর জন্য জাভাস্ক্রিপ্টের বিল্ট-ইন ফাংশন
 
 
 
-
-// ফাংশন ডিফিনেশন
-function functionName(parameter1, parameter2, parameter3) {
-    // ফাংশন বডি
-    return parameter1 + parameter2;
-}
-
-
-
-// ফাংশন কল
-functionName(argument1, argument2, argument3);
 
 //java script Function parameter, handle multiple parameters
 function addNumber(num1, num2) {
@@ -56,7 +46,7 @@ function displayProfile(name, cgpa) {
 
 // ২. ফাংশন কল (আসল মানগুলো হলো Arguments)
 displayProfile("Mohammad Abdullah", 3.50); 
-displayProfile("Anisur Rahman", 3.85); // একই ফাংশন ভিন্ন আর্গুমেন্ট দিয়ে রান
+displayProfile("Arman Aziz", 3.85); // একই ফাংশন ভিন্ন আর্গুমেন্ট দিয়ে রান
 
 
 
@@ -67,8 +57,8 @@ function greet(name, age) {
     console.log(`Hello ${name}, you are ${age} years old`);
 }
 
-// "John" এবং 25 হলো arguments
-greet("John", 25);  // Output: Hello John, you are 25 years old
+// "John" এবং 30 হলো arguments
+greet("Ebny", 30);  // Output: Hello Ebny, you are 30 years old
 
 
 
@@ -77,6 +67,9 @@ function myName(name, country) {
   console.log("My name is" + " " + name + "i live in" + " " + country);
 }
 myName("Abdullah", "Bangladesh");
+
+
+
 
 
 
@@ -90,6 +83,107 @@ printName("Mohammad", "Abdullah", "Aziz");
 printName("Mohammad");
 printName(myFirstName, myLastName); //let variable
 
+🔍 প্রথম ২ লাইন: গ্লোবাল ভেরিয়েবল তৈরি
+
+let myFirstName = "Programmer";
+let myLastName = "Aziz";
+
+এরা গ্লোবাল ভেরিয়েবল (যেকোনো জায়গায় অ্যাক্সেস আছে)
+
+মেমোরিতে সংরক্ষিত:
+
+myFirstName → "Programmer"
+
+myLastName → "Aziz"
+
+
+ফাংশন ডিক্লেয়ারেশন
+
+function printName(firstName, middleName, lastName) {
+  console.log(firstName + " " + middleName + " " + lastName);
+}
+
+প্যারামিটার ৩টা: firstName, middleName, lastName
+
+ফাংশন কিছু রিটার্ন করে না, শুধু কনসোলে প্রিন্ট করে
+
+ফাংশন এখন মেমোরিতে আছে, কিন্তু রান হয়নি
+
+এখন ৩টা ফাংশন কল
+printName("Mohammad", "Abdullah", "Aziz");
+
+✅ সব আর্গুমেন্ট দেওয়া আছে
+firstName = "Mohammad"
+
+middleName = "Abdullah"
+
+lastName = "Aziz"
+
+➡️ আউটপুট: Mohammad Abdullah Aziz
+
+
+২য় কল:
+printName("Mohammad");
+
+❌ শুধু ১টা আর্গুমেন্ট দেওয়া
+
+firstName = "Mohammad"
+
+middleName = undefined (কেউ দেয়নি)
+
+lastName = undefined (কেউ দেয়নি)
+
+➡️ আউটপুট: Mohammad undefined undefined
+এখানেই undefined আসার কারণ → ফাংশন ৩টা প্যারামিটার চায়, কিন্তু দেওয়া হয়েছে ১টা। বাকি ২টা প্যারামিটার অসংজ্ঞায়িত (undefined) থেকে যায়।
+
+৩য় কল:
+printName(myFirstName, myLastName);
+
+এখানে আর্গুমেন্ট হিসেবে গ্লোবাল ভেরিয়েবলের মান পাঠানো হয়েছে
+
+myFirstName-এর মান "Programmer" → firstName-এ যাবে
+
+myLastName-এর মান "Aziz" → middleName-এ যাবে
+
+lastName-এর জন্য কোনো আর্গুমেন্ট নেই → undefined
+➡️ আউটপুট: Programmer Aziz undefined
+
+
+গ্লোবাল ভেরিয়েবল নিজে থেকে কখনো লোকাল হয় না। কিন্তু ফাংশনের প্যারামিটার হলো লোকাল ভেরিয়েবল।
+printName(myFirstName, myLastName);
+
+১	গ্লোবাল myFirstName-এর মান ("Programmer") পড়া হয়
+২	সেটা ফাংশনের লোকাল প্যারামিটার firstName-এ কপি হয়
+৩	গ্লোবাল myLastName-এর মান ("Aziz") পড়া হয়
+৪	সেটা ফাংশনের লোকাল প্যারামিটার middleName-এ কপি হয়
+৫	lastName-এ কিছু আসে না → undefined
+
+💡 গুরুত্বপূর্ণ:
+গ্লোবাল ভেরিয়েবলের মান প্যারামিটারে যায়, কিন্তু গ্লোবাল ভেরিয়েবল নিজে লোকাল হয় না। ওরা আলাদা জায়গায় থাকে
+
+
+
+
+
+যদি গ্লোবাল ভেরিয়েবলের নাম ও প্যারামিটারের নাম এক হয়?
+
+let name = "Global";
+function test(name) {
+  console.log(name); // এখানে 'name' হলো প্যারামিটার (লোকাল)
+}
+test("Local"); // "Local"
+console.log(name); // "Global" (গ্লোবাল অপরিবর্তিত)
+প্যারামিটার = লোকাল, গ্লোবালকে ওভাররাইট করে না
+
+প্যারামিটার কম = undefined
+
+প্যারামিটার বেশি = এক্সট্রা ইগনোর
+
+গ্লোবালের মান প্যারামিটারে কপি হয়, গ্লোবাল লোকাল হয় না
+
+লোকাল আর গ্লোবাল আলাদা জায়গায় থাকে (নাম এক হলেও)
+
+
 
 
 
@@ -97,6 +191,169 @@ function sum(sum1, sum2) {
   console.log(sum1 + sum2 );
 }
 sum(2);  //result NaN
+
+এখানে NaN আসার কারণ ও সমাধান
+কারণ:
+
+sum1 = 2 (আর্গুমেন্ট থেকে পেয়েছে)
+
+sum2 = undefined (কোনো আর্গুমেন্ট দেওয়া হয়নি)
+
+2 + undefined = NaN
+NaN = Not a Number
+কারণ, undefined একটা সংখ্যা না, তাই জাভাস্ক্রিপ্ট যোগ করতে পারে না।
+
+🧠 জাভাস্ক্রিপ্টের ভেতরের হিসাব:
+sum1 = 2;
+sum2 = undefined;  // ← কোনো মান আসেনি
+
+console.log(2 + undefined);
+// 2 + undefined = NaN
+
+✅ সমাধান ১: ডিফল্ট প্যারামিটার ব্যবহার
+
+function sum(sum1, sum2 = 0) {
+  console.log(sum1 + sum2);
+}
+sum(2);        // 2
+sum(2, 3);     // 5
+
+
+✅ সমাধান ২: চেক করে যোগ করা
+
+function sum(sum1, sum2) {
+  if (sum2 === undefined) {
+    sum2 = 0;
+  }
+  console.log(sum1 + sum2);
+}
+sum(2);  // 2
+
+
+
+
+
+
+
+function printName(first, second, third) {
+    console.log(first + " " + third);
+    first = "Banner Red";
+    console.log(first);
+
+}
+
+let first = "Banner Red";
+let second = "Sugar Berry";
+let third = "Freedom Sky";
+
+printName("Red", "Green", "Blue");
+console.log(first + " " + second + " " + third);
+
+
+🧠 কোডটির– সারমর্ম:
+ফাংশনের ভিতরের first, second, third ফাংশনের নিজস্ব লোকাল ভেরিয়েবল (প্যারামিটার)।
+
+ফাংশনের বাইরের first, second, third গ্লোবাল ভেরিয়েবল।
+
+ফাংশন কল করার সময় পাস করা আর্গুমেন্টগুলো প্যারামিটারে অ্যাসাইন হয়, কিন্তু গ্লোবাল ভেরিয়েবলের কোনো পরিবর্তন হয় না (যতক্ষণ না গ্লোবালকে সরাসরি রিঅ্যাসাইন করা হসছে)।
+
+
+১ ফাংশন ডিক্লেয়ারেশন
+function printName(first, second, third) {
+    console.log(first + " " + third);
+    first = "Banner Red";
+    console.log(first);
+}
+এখানে first, second, third হচ্ছে প্যারামিটার। এরা ফাংশনের লোকাল ভেরিয়েবল।
+
+ফাংশনের ভিতরে first-এর মান পরিবর্তন করলে তা শুধুমাত্র ফাংশনের ভিতরেই প্রভাব ফেলবে।
+
+
+২ গ্লোবাল ভেরিয়েবল ডিক্লেয়ার
+
+let first = "Banner Red";
+let second = "Sugar Berry";
+let third = "Freedom Sky";
+
+এগুলো গ্লোবাল ভেরিয়েবল (যেকোনো জায়গা থেকে অ্যাক্সেস করা যায়)।
+
+ফাংশনের প্যারামিটার ও এই গ্লোবাল ভেরিয়েবলগুলো আলাদা। এমনকি নাম এক হলেও এরা ভিন্ন জিনিস।
+
+
+ধাপ ৩: ফাংশন কল
+
+printName("Red", "Green", "Blue");
+
+এখন ফাংশনের ভিতরে যা হয়—
+
+ফাংশনের ভিতরে (প্যারামিটার হিসেবে):
+first = "Red" (আর্গুমেন্ট থেকে আসা)
+
+second = "Green"
+
+third = "Blue"
+
+প্রথম console.log
+console.log(first + " " + third);
+
+→ first = "Red", third = "Blue"
+→ আউটপুট: "Red Blue"
+
+first-কে রিঅ্যাসাইন করা
+
+first = "Banner Red";
+
+এখন লোকাল first-এর মান "Banner Red" হয়ে গেল।
+
+
+দ্বিতীয় console.log
+console.log(first);
+→ আউটপুট: "Banner Red"
+
+তাহলে ফাংশন কলের আউটপুট:
+
+Red Blue
+Banner Red
+
+ধাপ ৪: ফাংশনের বাইরে গ্লোবাল ভেরিয়েবল প্রিন্ট
+
+console.log(first + " " + second + " " + third);
+
+ফাংশনের ভিতরে first-এর মান পরিবর্তন হলেও তা গ্লোবাল first-কে প্রভাবিত করে না।
+
+গ্লোবাল ভেরিয়েবলগুলো আগের মতোই আছে:
+
+first = "Banner Red"
+
+second = "Sugar Berry"
+
+third = "Freedom Sky"
+
+Banner Red Sugar Berry Freedom Sky
+
+📊 পুরো আউটপুট (কনসোলে যা):
+Red Blue
+Banner Red
+Banner Red Sugar Berry Freedom Sky
+
+ফাংশন কলের সময় "Red", "Green", "Blue" আর্গুমেন্ট প্যারামিটারে অ্যাসাইন হয়।
+
+ফাংশনের ভিতরে first-এর মান "Banner Red" করা হয় (শুধু লোকালটির)।
+
+ফাংশনের বাইরে গ্লোবাল ভেরিয়েবল অপরিবর্তিত থাকে।
+
+তাই শেষ আউটপুটে গ্লোবাল মানগুলোই প্রিন্ট হয়।
+
+
+প্যারামিটার	ফাংশনের নিজস্ব লোকাল ভেরিয়েবল। ফাংশন কল করার সময় আর্গুমেন্ট থেকে মান নেয়।
+গ্লোবাল ভেরিয়েবল	ফাংশনের বাইরে ডিক্লেয়ার করা হয়। পুরো প্রোগ্রামে অ্যাক্সেসযোগ্য।
+একই নামের লোকাল ও গ্লোবাল	এরা আলাদা। ফাংশনের ভিতরে নাম এক হলেও লোকালটাই প্রাধান্য পায়।
+লোকাল পরিবর্তন	ফাংশনের ভিতরে লোকাল ভেরিয়েবলের মান বদলালে গ্লোবালের কোনো পরিবর্তন হয় না।
+
+
+
+
+
 
 
 
@@ -128,7 +385,7 @@ function checkUserStatus(userName, status = "Active") {
 }
 
 checkUserStatus("Abdullah");          // আউটপুট: User: Abdullah, Status: Active (ডিফল্ট মান নিয়েছে)
-checkUserStatus("Sajid", "Inactive"); // আউটপুট: User: Sajid, Status: Inactive (ডিফল্ট মান ওভাররাইট হয়েছে)
+checkUserStatus("aZIZ", "Inactive"); // আউটপুট: User: Aziz, Status: Inactive (ডিফল্ট মান ওভাররাইট হয়েছে)
 
 
 
@@ -171,6 +428,6 @@ console.log(student.cgpa); // আউটপুট: 4.00 (আসল অবজে�
 বৈশিষ্ট্য                    Parameters (প্যারামিটার)                          Arguments (আর্গুমেন্ট)
 অবস্থান	                 ফাংশনের স্ট্রাকচার বা ডেফিনিশনে থাকে।	             ফাংশন যেখানে এক্সিকিউট বা কল করা হয় সেখানে থাকে।
 ধরণ	                     এটি লোকাল স্কোপড ভেরিয়েবলের মতো কাজ করে।	     এটি সরাসরি ভ্যালু, ভেরিয়েবলের মান বা এক্সপ্রেশন।
-মেমরি	                   ফাংশন কল না হওয়া পর্যন্ত মেমরিতে জায়গা নেয় না।	   এক্সিকিউশনের সময় মেমরিতে আসল ডাটা হিসেবে পাস হয়।
+মেমরি	                 ফাংশন কল না হওয়া পর্যন্ত মেমরিতে জায়গা নেয় না।	 এক্সিকিউশনের সময় মেমরিতে আসল ডাটা হিসেবে পাস হয়।
 
 
