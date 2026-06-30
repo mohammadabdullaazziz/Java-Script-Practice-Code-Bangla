@@ -430,4 +430,197 @@ console.log(student.cgpa); // আউটপুট: 4.00 (আসল অবজে�
 ধরণ	                     এটি লোকাল স্কোপড ভেরিয়েবলের মতো কাজ করে।	     এটি সরাসরি ভ্যালু, ভেরিয়েবলের মান বা এক্সপ্রেশন।
 মেমরি	                 ফাংশন কল না হওয়া পর্যন্ত মেমরিতে জায়গা নেয় না।	 এক্সিকিউশনের সময় মেমরিতে আসল ডাটা হিসেবে পাস হয়।
 
+-------------------------------------------------------------------------
 
+function myName(firstName, lastName) {
+    console.log(firstName + " " + lastName);
+    firstName= "Roksana";
+    console.log(firstName);
+}
+
+let name1 = "Mohammad";
+let name2 = "Aziz";
+
+
+myName(name1, name2);
+myName("Abdullah", "Arman");
+
+Roksana ২ বার প্রিন্ট হওয়ার কারণ
+
+function myName(firstName, lastName) {
+    console.log(firstName + " " + lastName);  // লাইন ১
+    firstName = "Roksana";                     // লাইন ২
+    console.log(firstName);                    // লাইন ৩
+}
+
+let name1 = "Mohammad";
+let name2 = "Aziz";
+
+myName(name1, name2);     // কল ১
+myName("Abdullah", "Arman"); // কল ২
+
+📤 আউটপুট কী হবে?
+
+Mohammad Aziz
+Roksana
+Abdullah Arman
+Roksana
+
+কারণটা খুব সহজ: ফাংশনটি ২ বার কল করা হয়েছে!
+
+প্রতিবার ফাংশন কল হলে:
+
+প্রথমে console.log(firstName + " " + lastName) রান করে
+
+তারপর firstName = "Roksana" দিয়ে প্যারামিটারটির মান পরিবর্তন করে
+
+তারপর console.log(firstName) রান করে
+
+যেহেতু ফাংশনটি ২ বার কল করা হয়েছে, সেহেতু প্রতিবারই "Roksana" প্রিন্ট হয়েছে।
+
+📊 ধাপে ধাপে বিশ্লেষণ
+
+🔹 ১ম কল: myName(name1, name2)
+
+// name1 = "Mohammad", name2 = "Aziz"
+function myName(firstName, lastName) {
+    // Step 1: firstName = "Mohammad", lastName = "Aziz"
+    console.log(firstName + " " + lastName);  
+    // আউটপুট: "Mohammad Aziz" ✅
+    
+    // Step 2: firstName এর মান পরিবর্তন
+    firstName = "Roksana";  
+    // এখন firstName = "Roksana"
+    
+    // Step 3: নতুন মান প্রিন্ট
+    console.log(firstName);  
+    // আউটপুট: "Roksana" ✅ (১ম বার)
+}
+
+🔹 ২য় কল: myName("Abdullah", "Arman")
+
+// সরাসরি "Abdullah", "Arman" পাস করা হয়েছে
+function myName(firstName, lastName) {
+    // Step 1: firstName = "Abdullah", lastName = "Arman"
+    console.log(firstName + " " + lastName);  
+    // আউটপুট: "Abdullah Arman" ✅
+    
+    // Step 2: firstName এর মান পরিবর্তন
+    firstName = "Roksana";  
+    // এখন firstName = "Roksana"
+    
+    // Step 3: নতুন মান প্রিন্ট
+    console.log(firstName);  
+    // আউটপুট: "Roksana" ✅ (২য় বার)
+}
+
+
+ ফাংশন প্রতিবার কলেই নতুন করে রান করে
+
+// প্রতিবার কলেই ফাংশনের ভিতরের কোড 처음 থেকে রান করে
+myName(name1, name2);     // ১ম বার রান
+myName("Abdullah", "Arman"); // ২য় বার রান (আলাদা এক্সিকিউশন)
+
+
+প্যারামিটার পরিবর্তন করা লোকাল স্কোপে সীমাবদ্ধ
+
+function myName(firstName, lastName) {
+    firstName = "Roksana";  // শুধু এই ফাংশনের ভিতরে firstName পরিবর্তন হয়
+    console.log(firstName);
+}
+
+let name1 = "Mohammad";
+myName(name1);  // "Roksana" প্রিন্ট হবে
+console.log(name1);  // "Mohammad" (গ্লোবাল ভেরিয়েবল অপরিবর্তিত!)
+
+
+
+প্রতিবার নতুন প্যারামিটার ভ্যালু আসে
+
+// ১ম কল: firstName = "Mohammad"
+myName(name1, name2);
+
+// ২য় কল: firstName = "Abdullah" (পুরোনো মান ধরে রাখে না)
+myName("Abdullah", "Arman");
+
+
+যে Roksana শুধু ১ বার প্রিন্ট হোক, তাহলে ফাংশনটি ১ বার কল করতে হবে:
+
+function myName(firstName, lastName) {
+    console.log(firstName + " " + lastName);
+    firstName = "Roksana";
+    console.log(firstName);
+}
+
+let name1 = "Mohammad";
+let name2 = "Aziz";
+
+myName(name1, name2);  // শুধু ১ বার কল
+// আউটপুট:
+// Mohammad Aziz
+// Roksana (শুধু ১ বার)
+
+
+ফাংশন কলের মেকানিজম
+
+// ফাংশন ডেফিনেশন (শুধু ১ বার তৈরি হয়)
+function myName(firstName, lastName) {
+    // এই অংশটি প্রতিবার কলেই নতুন করে রান করে
+    console.log(firstName + " " + lastName);
+    firstName = "Roksana";
+    console.log(firstName);
+}
+
+// ===== ১ম কল =====
+myName(name1, name2);
+// কি হয়:
+// 1. firstName = name1 (="Mohammad")
+// 2. lastName = name2 (="Aziz")
+// 3. console.log("Mohammad Aziz")
+// 4. firstName = "Roksana" (লোকাল পরিবর্তন)
+// 5. console.log("Roksana")
+// 6. ফাংশন শেষ → সব লোকাল ভেরিয়েবল মুছে যায়
+
+// ===== ২য় কল =====
+myName("Abdullah", "Arman");
+// 1. firstName = "Abdullah" (নতুন মান)
+// 2. lastName = "Arman" (নতুন মান)
+// 3. console.log("Abdullah Arman")
+// 4. firstName = "Roksana" (আবার পরিবর্তন)
+// 5. console.log("Roksana")
+// 6. ফাংশন শেষ → সব লোকাল ভেরিয়েবল মুছে যায়
+
+
+firstName = "Roksana" কি গ্লোবাল name1-কে পরিবর্তন করে?
+
+উত্তর: ❌ না! কারণ:
+
+let name1 = "Mohammad";
+
+function myName(firstName) {
+    firstName = "Roksana";  // প্যারামিটার পরিবর্তন
+    console.log(firstName);  // "Roksana"
+}
+
+myName(name1);
+console.log(name1);  // "Mohammad" (অপরিবর্তিত!)
+
+Roksana ২ বার প্রিন্ট হলে কীভাবে ১ বার করব?
+
+myName(name1, name2);  // শুধু ১ বার
+// আউটপুট: Mohammad Aziz, Roksana (১ বার)
+
+Roksana প্রিন্ট বন্ধ করব কীভাবে?
+
+function myName(firstName, lastName) {
+    console.log(firstName + " " + lastName);
+    // firstName = "Roksana";  // কমেন্ট করে দিন
+    // console.log(firstName);  // কমেন্ট করে দিন
+}
+
+Roksana কেন ২ বার প্রিন্ট হয়েছে?	ফাংশনটি ২ বার কল করা হয়েছে
+প্রতিবার কি একই ভ্যালু আসে?	না, প্রথমবার "Mohammad" আর দ্বিতীয়বার "Abdullah"
+গ্লোবাল ভেরিয়েবল পরিবর্তন হয়েছে?	না, শুধু প্যারামিটার পরিবর্তন হয়েছে
+কীভাবে ১ বার করব?	ফাংশন ১ বার কল করলে
+
+মূল কথা: ফাংশনটি যতবার কল হবে, তার ভিতরের কোড ততবার রান করবে। আর প্রতিবার রান করার সময় প্যারামিটার নতুন ভ্যালু পায় এবং "Roksana" সেট হয়ে প্রিন্ট হয়। এখানে ফাংশনটি ২ বার কল হওয়ায় Roksana ২ বার প্রিন্ট হয়েছে!
