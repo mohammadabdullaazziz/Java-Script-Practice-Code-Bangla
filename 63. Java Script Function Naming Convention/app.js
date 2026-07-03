@@ -241,3 +241,486 @@ open... ➔ কোনো পপ-আপ, মোডাল বা উইন্ড�
 close... ➔ খোলা থাকা কোনো কিছু বন্ধ করার জন্য (যেমন: closeModal())।
 
 handle... ➔ কোনো ইভেন্ট বা ঘটনা ঘটলে তা সামলানোর জন্য (যেমন: handleClick(), handleSubmit())।
+
+
+
+১.১ কেস স্টাইল (Case Styles)
+
+// ✅ camelCase - সবচেয়ে বেশি ব্যবহৃত (Recommended)
+function getUserData() {}
+function calculateTotalPrice() {}
+function fetchUserProfile() {}
+
+// ❌ PascalCase - সাধারণত Class/Constructor এর জন্য
+function User() {}  // Class এর জন্য ঠিক
+function getUser() {} // Function এর জন্য ভুল
+
+// ❌ snake_case - JavaScript-এ ব্যবহার করা হয় না
+function get_user_data() {} // Avoid
+
+// ❌ kebab-case - JavaScript-এ বৈধ নয়
+function get-user-data() {} // Syntax Error!
+
+
+
+১.২ নামকরণের সাধারণ নিয়ম
+
+// 1. অর্থপূর্ণ নাম দিন (Meaningful names)
+// ❌ Bad
+function a() {}
+function do() {}
+function temp() {}
+
+// ✅ Good
+function calculateTotal() {}
+function validateEmail() {}
+function fetchUserById() {}
+
+// 2. Verb দিয়ে শুরু করুন (Start with a verb)
+// ❌ Bad
+function userData() {}
+function emailValidation() {}
+
+// ✅ Good
+function getUserData() {}
+function validateEmail() {}
+
+// 3. ফাংশনের কাজ বোঝান (Describe what it does)
+// ❌ Bad
+function process() {}
+
+// ✅ Good
+function processPayment() {}
+function processUserRegistration() {}
+
+
+
+২. বিভিন্ন ধরনের ফাংশনের নামকরণ
+
+২.১ Getter/Setter ফাংশন
+
+// Getter - কিছু রিটার্ন করে
+function getUserName() {}
+function getTotalPrice() {}
+function getActiveUsers() {}
+
+// Setter - কিছু সেট করে
+function setUserName(name) {}
+function setTotalPrice(price) {}
+function setUserStatus(status) {}
+
+// Boolean Getter - 'is', 'has', 'can', 'should' দিয়ে শুরু
+function isActive() {}
+function hasPermission() {}
+function canEdit() {}
+function shouldUpdate() {}
+function isValid() {}
+function isEmailVerified() {}
+
+// উদাহরণ
+class User {
+    constructor(name, age) {
+        this._name = name;
+        this._age = age;
+        this._isActive = true;
+    }
+    
+    // Getter
+    getName() {
+        return this._name;
+    }
+    
+    // Setter
+    setName(name) {
+        this._name = name;
+    }
+    
+    // Boolean Getter
+    isActive() {
+        return this._isActive;
+    }
+    
+    hasPermission(role) {
+        return role === 'admin' || role === 'moderator';
+    }
+}
+
+
+
+২.২ Event Handler ফাংশন
+
+// Event Handler - 'handle' বা 'on' দিয়ে শুরু
+function handleClick() {}
+function handleSubmit() {}
+function handleKeyPress() {}
+
+function onUserLogin() {}
+function onFormSubmit() {}
+function onButtonClick() {}
+
+// React-style event handlers
+const handleChange = (event) => {}
+const handleSubmit = (event) => {}
+
+// উদাহরণ
+button.addEventListener('click', handleClick);
+form.addEventListener('submit', handleSubmit);
+
+// Event handler with specific action
+function onLoginSuccess(user) {}
+function onLoginError(error) {}
+function onDataReceived(data) {}
+
+
+২.৩ Utility/Helper ফাংশন
+
+// Helper/Utility ফাংশন - কাজের ধরন বোঝায়
+function formatDate(date) {}
+function capitalizeString(str) {}
+function generateId() {}
+function validateEmail(email) {}
+function sanitizeInput(input) {}
+function sortByDate(items) {}
+function filterByCategory(items, category) {}
+
+// উদাহরণ
+function formatCurrency(amount, currency = 'BDT') {
+    return `${currency} ${amount.toFixed(2)}`;
+}
+
+function generateRandomId(length = 8) {
+    return Math.random().toString(36).substring(2, 2 + length);
+}
+
+
+২.৪ Async ফাংশন
+
+// Async ফাংশন - 'fetch', 'load', 'get' দিয়ে শুরু
+async function fetchUserData() {}
+async function loadConfiguration() {}
+async function getApiData() {}
+
+// Promise-returning functions
+function fetchUsers() {
+    return new Promise((resolve, reject) => {});
+}
+
+// উদাহরণ
+async function fetchUserProfile(userId) {
+    const response = await fetch(`/api/users/${userId}`);
+    return response.json();
+}
+
+async function loadInitialData() {
+    const [users, posts] = await Promise.all([
+        fetchUsers(),
+        fetchPosts()
+    ]);
+    return { users, posts };
+}
+
+
+২.৫ Callback ফাংশন
+
+// Callback প্যারামিটার - 'callback', 'onSuccess', 'onError' নামে
+function fetchData(url, onSuccess, onError) {
+    fetch(url)
+        .then(response => response.json())
+        .then(onSuccess)
+        .catch(onError);
+}
+
+// Callback with context
+function processData(data, callback) {
+    // ... processing
+    callback(null, result);
+}
+
+// Example with error-first callback (Node.js style)
+function readFile(path, callback) {
+    // callback(error, data)
+}
+
+
+
+৩. অ্যাডভান্সড নামকরণ কনভেনশন
+
+৩.১ Factory Functions
+
+// Factory functions - 'create' দিয়ে শুরু
+function createUser(name, age) {
+    return {
+        name,
+        age,
+        getName: () => name,
+        getAge: () => age
+    };
+}
+
+function createProduct(name, price) {
+    return {
+        name,
+        price,
+        getName: () => name,
+        getPrice: () => price
+    };
+}
+
+function createElement(tag, className) {
+    const element = document.createElement(tag);
+    element.className = className;
+    return element;
+}
+
+// উদাহরণ
+const user = createUser('John', 30);
+const product = createProduct('Laptop', 1000);
+
+
+৩.২ Converter/Transformer ফাংশন
+
+// Converter ফাংশন - 'to' বা 'from' দিয়ে শুরু
+function toJSON(data) {}
+function toDate(string) {}
+function toUpperCase(string) {}
+
+function fromJSON(json) {}
+function fromDate(date) {}
+
+// উদাহরণ
+function toCelsius(fahrenheit) {
+    return (fahrenheit - 32) * 5/9;
+}
+
+function toFahrenheit(celsius) {
+    return (celsius * 9/5) + 32;
+}
+
+function toBase64(str) {
+    return Buffer.from(str).toString('base64');
+}
+
+function fromBase64(base64) {
+    return Buffer.from(base64, 'base64').toString();
+}
+
+
+৩.৩ Validator/Checker ফাংশন
+
+// Validator - 'is', 'has', 'can', 'should' দিয়ে শুরু
+function isEmailValid(email) {}
+function isPhoneNumber(phone) {}
+function hasSpecialCharacters(str) {}
+function canAccessResource(user, resource) {}
+function shouldRedirect(url) {}
+
+// উদাহরণ
+function isStrongPassword(password) {
+    // মিনিমাম ৮ ক্যারেক্টার,至少一个大写字母,一个数字,一个特殊字符
+    return password.length >= 8 &&
+           /[A-Z]/.test(password) &&
+           /[0-9]/.test(password) &&
+           /[^A-Za-z0-9]/.test(password);
+}
+
+function isValidDate(date) {
+    return date instanceof Date && !isNaN(date);
+}
+
+function hasRequiredFields(obj, requiredFields) {
+    return requiredFields.every(field => obj[field] !== undefined);
+}
+
+
+
+৪. বিশেষ ক্ষেত্রে নামকরণ
+
+৪.১ Private ফাংশন (Convention)
+
+class UserService {
+    constructor() {
+        this._cache = new Map();
+    }
+    
+    // Public method
+    getUser(id) {
+        if (this._cache.has(id)) {
+            return this._cache.get(id);
+        }
+        const user = this._fetchUser(id);
+        this._cache.set(id, user);
+        return user;
+    }
+    
+    // Private method (convention with underscore)
+    _fetchUser(id) {
+        // Internal use only
+        return { id, name: 'John' };
+    }
+    
+    // Private method (convention)
+    _validateUser(user) {
+        return user && user.id;
+    }
+}
+
+// Private function (module pattern)
+function _helperFunction() {
+    // This is a private helper
+}
+
+function publicFunction() {
+    _helperFunction();
+    // ...
+}
+
+
+৪.২ IIFE (Immediately Invoked Function Expression)
+
+// IIFE - সাধারণত নাম দেয়া হয় না, অথবা 'init' দিয়ে শুরু
+(function() {
+    // initialization code
+})();
+
+// Named IIFE
+(function initApp() {
+    console.log('App initialized');
+})();
+
+// Modern IIFE with async
+(async function loadData() {
+    await fetchData();
+})();
+
+
+
+৪.৩ Higher-Order Functions
+
+// Higher-order functions - ফাংশন রিটার্ন করে
+function createLogger(prefix) {
+    return function log(message) {
+        console.log(`[${prefix}] ${message}`);
+    };
+}
+
+function multiplyBy(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+
+function withRetry(fn, maxAttempts = 3) {
+    return async function(...args) {
+        let attempts = 0;
+        while (attempts < maxAttempts) {
+            try {
+                return await fn(...args);
+            } catch (error) {
+                attempts++;
+                if (attempts === maxAttempts) throw error;
+            }
+        }
+    };
+}
+
+
+
+
+
+টিমে কাজ করার সময় নামকরণ গাইডলাইন
+
+// 📋 Team Naming Convention Document
+
+// 1. File naming
+// - user.service.js
+// - user.controller.js
+// - user.model.js
+// - user.routes.js
+
+// 2. Function naming in service
+class UserService {
+    // CRUD Operations
+    createUser() {}
+    getUser() {}
+    updateUser() {}
+    deleteUser() {}
+    
+    // Business Logic
+    activateUser() {}
+    deactivateUser() {}
+    resetPassword() {}
+    
+    // Queries
+    findUsers() {}
+    searchUsers() {}
+    filterUsers() {}
+}
+
+// 3. Function naming in controller
+class UserController {
+    // HTTP Methods + Resource
+    getUsers() {}
+    getUser() {}
+    createUser() {}
+    updateUser() {}
+    deleteUser() {}
+    
+    // Additional endpoints
+    activateUser() {}
+    uploadAvatar() {}
+    changePassword() {}
+}
+
+// 4. Function naming in routes
+router.get('/users', getUsers);
+router.get('/users/:id', getUser);
+router.post('/users', createUser);
+router.put('/users/:id', updateUser);
+router.delete('/users/:id', deleteUser);
+
+
+বিশেষ টিপস
+
+// 1. Use consistent prefixes
+// ✅ Good
+getUser()
+getProduct()
+getOrder()
+
+// 2. Use consistent suffixes
+// ✅ Good
+validateEmail()
+validatePassword()
+validatePhone()
+
+// 3. Use meaningful verbs
+// ✅ Good
+saveUser()    // Saves to database
+updateUser()  // Updates existing
+deleteUser()  // Removes
+createUser()  // Creates new
+
+// 4. Use context-aware names
+// Inside user module
+function getProfile() {}
+function updateProfile() {}
+
+// Inside product module
+function getDetails() {}
+function updateStock() {}
+
+// 5. Use domain-specific terms
+// E-commerce
+function calculateShipping() {}
+function applyDiscount() {}
+function processPayment() {}
+
+// Healthcare
+function checkSymptoms() {}
+function prescribeMedication() {}
+function scheduleAppointment() {}
+
+
+
+
+
