@@ -112,3 +112,20 @@ myIntro();
 }
 
 এই দ্বিতীয় বন্ধনী বা কার্লি ব্রেসেস {} এর ভেতরে থাকা সবটুকু কোড মিলে তৈরি হয় একটি Block। জাভাস্ক্রিপ্ট এই ভেতরের কোডগুলোকে একটি দল বা গুচ্ছ হিসেবে বিবেচনা করে।
+
+
+
+
+function userDetails() {
+   let userName = "Abdullah Aziz";
+   let userAge = 30;
+   let userCountry = "Bangladesh";
+   console.log(`My name is ${userName}, I am ${userAge} years old and 
+   I live in ${userCountry}`);
+}
+
+userDetails();
+
+১. userDetails: শুধুমাত্র এই নামটুকুকে বলা হয় Function Name (ফাংশনের নাম)।  এই ফাংশনটিকে চেনার জন্য একটি নাম।
+
+২. userDetails(): যখন নামের শেষে এই ফার্স্ট ব্র্যাকেট () যুক্ত করে, তখন পুরো জিনিসটাকে বলা হয় Function Call (ফাংশন কল) বা Function Invocation।
