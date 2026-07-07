@@ -129,15 +129,6 @@ Outside function: 5
 
 
 
-
-
-
-
-
-
-  
-
-
 কেন লোকাল ভেরিয়েবল ব্যবহার করা যাবে?
 
 এনক্যাপসুলেশন (Encapsulation) - ডেটা লুকানো যায়
@@ -172,7 +163,6 @@ console.log(secretCode); // Error: secretCode is not defined
 
 কেন এরর (Error) এলো? কারণ secretCode ভেরিয়েবলটি তৈরি হয়েছে myFunction এর পেটের (ভেতরে)। ফাংশনের কাজ শেষ হওয়ার সাথে সাথে জাভাস্ক্রিপ্ট এই ভেরিয়েবলটিকে মেমরি থেকে মুছে ফেলে।
 তাই বাইরে থেকে একে আর খুঁজে পাওয়া যায় না।
-
 
 
 
@@ -268,7 +258,6 @@ myName();
 
 ফাংশনের ভেতরের ভেরিয়েবলকে প্রিন্ট বা দেখতে চাইলে console.log()-কে অবশ্যই ফাংশনের ভেতরেই লিখতে হবে। 
 যদি  এটিকে ফাংশনের বাইরে লিখা হত, তবে জাভাস্ক্রিপ্ট এরর দিত (Error: myFullName is not defined), কারণ বাইরে থেকে এই ভেরিয়েবলকে চেনাই যায় না।
-
 
 
 
@@ -462,6 +451,59 @@ console.log("Before:", userName);   // Before: Abdullah
 updateUser();                       // Updated name: Arman
 console.log("After:", userName);    // After: Arman
 
+
+
+    
+let userName = 'Abdullah';
+
+function showMessage() {
+  let message = 'Hello, ' + userName;
+  alert(message);
+}
+
+showMessage(); // Hello, Abdullah
+
+
+    
+
+    
+ফাংশনটির বাইরের ভেরিয়েবলটিতে সম্পূর্ণ অ্যাক্সেস আছে। এটি সেটিকে পরিবর্তনও করতে পারে।
+
+
+let userName = 'Abdullah';
+
+function showMessage() {
+  userName = "Aziz"; // (1) changed the outer variable
+
+  let message = 'Hello, ' + userName;
+  alert(message);
+}
+
+alert( userName ); // Abdullah before the function call
+
+showMessage();
+
+alert( userName ); // Aziz, the value was modified by the function
+
+বাইরের ভেরিয়েবলটি কেবল তখনই ব্যবহৃত হয় যখন কোনো স্থানীয় ভেরিয়েবল থাকে না।
+
+যদি কোনো ফাংশনের ভিতরে একই নামের ভেরিয়েবল ডিক্লেয়ার করা হয়, তাহলে সেটি বাইরের ভেরিয়েবলটিকে আড়াল করে দেয় । 
+উদাহরণস্বরূপ, নিচের কোডে ফাংশনটি `local` ভেরিয়েবল ব্যবহার করেছে userName। বাইরের ভেরিয়েবলটি উপেক্ষা করা হয়:  
+
+
+let userName = 'Arman';
+
+function showMessage() {
+  let userName = "Aziz"; // declare a local variable
+
+  let message = 'Hello, ' + userName; // Aziz
+  alert(message);
+}
+
+// the function will create and use its own userName
+showMessage();
+
+alert( userName ); // Arman, unchanged, the function did not access the outer variable
 
 
 
@@ -711,3 +753,41 @@ console.log(myGfName); // আউটপুট আসতো: Most (কারণ �
 userName(); // ফাংশন কল হলো পরে
 
 সংক্ষেপে: গ্লোবাল ভেরিয়েবল হওয়ার কারণে ফাংশনের ভেতরের পরিবর্তনটি গ্লোবাল বা স্থায়ী হয়ে গেছে, তাই শেষেও পুরো নামটিই দেখাচ্ছে।
+
+
+
+
+
+
+যখন একটি গ্লোবাল ভেরিয়েবল এবং একটি লোকাল ভেরিয়েবলের নাম একদম এক বা সেম (Same) হয়, তখন ফাংশনের ভেতরে লোকাল ভেরিয়েবলটিই সবসময় বেশি অগ্রাধিকার বা Priority পায়।
+
+জাভাস্ক্রিপ্টের ভাষায় এই নিয়মটিকে বলা হয় Variable Shadowing (লোকাল ভেরিয়েবলটি গ্লোবাল ভেরিয়েবলটিকে আড়াল বা ছায়া দিয়ে ফেলে)।
+
+
+// ১. এটি হলো গ্লোবাল ভেরিয়েবল (ফাংশনের বাইরে)
+let myFavoriteColor = "Red"; 
+
+function checkColor() {
+   // ২. এটি হলো লোকাল ভেরিয়েবল (ফাংশনের ভেতরে এবং নাম একদম সেম)
+   let myFavoriteColor = "Blue"; 
+   
+   // ফাংশনের ভেতরে প্রিন্ট করছি
+   console.log(`ফাংশনের ভেতরে রঙটি হলো: ${myFavoriteColor}`); 
+}
+
+// ফাংশনটি কল করা হলো
+checkColor();
+
+// ফাংশনের বাইরে আবার প্রিন্ট করছি
+console.log(`ফাংশনের বাইরে রঙটি হলো: ${myFavoriteColor}`);
+
+ফাংশনের ভেতরে রঙটি হলো: Blue
+
+ফাংশনের বাইরে রঙটি হলো: Red
+
+(সহজ ব্যাখ্যা)
+
+ফাংশনের ভেতরে (Priority): যখন তুমি ফাংশনের ভেতরে myFavoriteColor ভেরিয়েবলটি ব্যবহার করেছ, জাভাস্ক্রিপ্ট সবার আগে তার নিজের ঘরের (ফাংশনের ভেতরের) লোকাল ভেরিয়েবলটি খোঁজে। 
+যেহেতু সে ঘরের ভেতরেই ওই নামে একটা ভেরিয়েবল পেয়ে গেছে, তাই সে বাইরের গ্লোবাল ভেরিয়েবলটির দিকে আর তাকায়ই না। সে লোকাল মান "Blue"-কে অগ্রাধিকার দেয়।
+
+ফাংশনের বাইরে: ফাংশনের কাজ শেষ হয়ে গেলে লোকাল ভেরিয়েবল Blue এর ক্ষমতাও শেষ হয়ে যায়। তাই একদম নিচের লাইনে যখন আবার প্রিন্ট করা হলো, তখন সে গ্লোবাল ভেরিয়েবল "Red"-কেই দেখাল।
