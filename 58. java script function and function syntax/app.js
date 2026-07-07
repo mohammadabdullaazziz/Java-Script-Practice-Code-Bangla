@@ -99,3 +99,16 @@ function myIntro () {
   console.log("I live in Bangladesh");
 }
 myIntro();
+
+
+
+
+সেকেন্ড ব্র্যাকেট বা { } এর ভেতরের পুরো অংশটাকে জাভাস্ক্রিপ্টের ভাষায় Block (ব্লক) বা Block Statement বলা হয়।
+
+{
+   console.log("I am Abdullah");
+   console.log("My age 28");
+   console.log("I live in Bangladesh");
+}
+
+এই দ্বিতীয় বন্ধনী বা কার্লি ব্রেসেস {} এর ভেতরে থাকা সবটুকু কোড মিলে তৈরি হয় একটি Block। জাভাস্ক্রিপ্ট এই ভেতরের কোডগুলোকে একটি দল বা গুচ্ছ হিসেবে বিবেচনা করে।
