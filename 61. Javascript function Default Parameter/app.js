@@ -15,9 +15,18 @@ Default Parameter হলো ফাংশনের প্যারামিটা
 
 বেসিক সিনট্যাক্স 
 
+function functionName(parameter = defaultValue) {
+    // code
+}
+
+
+
 function functionName(param1 = defaultValue1, param2 = defaultValue2) {
     // ফাংশন বডি
 }
+
+
+
 
 
 ডিফল্ট প্যারামিটার ছাড়া সমস্যা (পুরাতন নিয়ম):
@@ -66,6 +75,72 @@ function greet(name = "Guest") {
     console.log(`Hello ${name}`);
 }
 // অনেক ক্লিন এবং সহজ!
+
+
+
+
+
+পুরোনো নিয়ম (ডিফল্ট প্যারামিটার ছাড়া):
+
+function makeTea(sugar) {
+   // ইউজার যদি চিনি (sugar) না দেয়, তবে চিনি হয়ে যাবে undefined
+   if (sugar === undefined) {
+       sugar = 1; // নিজে থেকে ১ চামচ ধরে নিলাম
+   }
+   console.log(`আপনার চা তৈরি, চিনি দেওয়া হয়েছে ${sugar} চামচ।`);
+}
+
+makeTea(); // আমরা ব্র্যাকেটে কোনো মান দিইনি
+// আউটপুট: আপনার চা তৈরি, চিনি দেওয়া হয়েছে 1 চামচ।
+
+আধুনিক নিয়ম (Default Parameter দিয়ে):
+এখন আর ওই if কন্ডিশন লেখার দরকার নেই। ফাংশন তৈরি করার সময়ই ব্র্যাকেটের ভেতর সরাসরি মান বসিয়ে দেওয়া যায়:
+
+
+// এখানে sugar = 1 লিখে আমরা ডিফল্ট মান সেট করে দিলাম
+function makeTea(sugar = 1) {
+   console.log(`আপনার চা তৈরি, চিনি দেওয়া হয়েছে ${sugar} চামচ।`);
+}
+
+// কেস ১: কোনো মান দিলে না
+makeTea(); 
+// আউটপুট: আপনার চা তৈরি, চিনি দেওয়া হয়েছে 1 চামচ। (ডিফল্ট মান কাজ করেছে)
+
+// কেস ২: তুমি নিজের মতো মান দিলে
+makeTea(3); 
+// আউটপুট: আপনার চা তৈরি, চিনি দেওয়া হয়েছে 3 চামচ। (এখন আর ডিফল্ট মান কাজ করবে না, তোমার দেওয়া ৩ কাজ করবে)
+
+
+
+
+🏆 সিস্টেম ডিজাইনে এটা কেন এত দরকারি?
+ধরো, ইউজার রেজিস্ট্রেশনের একটা ফাংশন বানাচ্ছ। এখন কোনো ইউজার যদি প্রোফাইল খোলার সময় তার দেশের নাম না দেয়,
+তবে তুমি ডিফল্ট প্যারামিটার ব্যবহার করে অটোমেটিক "Bangladesh" সেট করে দিতে পারো:
+
+function createUser(name, country = "Bangladesh") {
+    console.log(`ইউজার: ${name}, দেশ: ${country}`);
+}
+
+createUser("Abdullah"); 
+// আউটপুট: ইউজার: Abdullah, দেশ: Bangladesh
+
+
+এক লাইনে মনে রাখার উপায়:
+
+ফাংশন কল করার সময় মান দিলে সেই মানটাই কাজ করবে, আর মান দিতে ভুলে গেলে বা না দিলে ব্র্যাকেটের ভেতরের ডিফল্ট মানটি ব্যাকআপ হিসেবে কাজ করবে!
+
+function greet(name = "Guest") {
+    console.log("Hello " + name);
+}
+
+greet();
+greet("Aziz");
+
+
+Hello Guest
+Hello Aziz
+greet() → argument দেওয়া হয়নি, তাই "Guest" ব্যবহৃত হয়েছে।
+greet("Aziz") → "Aziz" default value-কে replace করেছে।  
 
 
 
@@ -122,8 +197,21 @@ function createUser(name = "Guest", age = 18, city = name + "'s City") {
 }
 
 createUser();              // Guest, 18, from Guest's City
-createUser("John");        // John, 18, from John's City
-createUser("John", 25);    // John, 25, from John's City
+createUser("Abdullah");        // Abdullah, 18, from John's City
+createUser("Abdullah", 25);    // Abdullah, 25, from John's City
+
+
+
+
+
+function userInfo(name = "Unknown", age = 18, city = "Dhaka") {
+    console.log(`Name: ${name}, Age: ${age}, City: ${city}`);
+}
+
+userInfo();                          // Name: Unknown, Age: 18, City: Dhaka
+userInfo("Sumi");                    // Name: Sumi, Age: 18, City: Dhaka
+userInfo("Sumi", 25);                // Name: Sumi, Age: 25, City: Dhaka
+userInfo("Sumi", 25, "Chittagong");  // Name: Sumi, Age: 25, City: Chittagong
 
 
 
@@ -219,6 +307,7 @@ sum(2, 2);
 
 
 
+
 function greet(name = "Mohammad") {
   console.log(`Hello, ${name}!`);
 }
@@ -228,10 +317,30 @@ greet("Aziz"); // Output: Hello, Aziz!
 
 
 
+
 function express(name1, name2 = (1 == 1) {
     console.log(`Hey! ${name1} ${name2}`);
 }
 express("Ibny");
+
+
+
+
+
+function justTest() {
+   return "Welcome";
+}
+
+function userName(firstName, lastName = justTest()) {
+    console.log(`Hello ${firstName} ${lastName}`);
+    
+} 
+
+userName("Abdullah");
+
+
+
+
 
 
 
