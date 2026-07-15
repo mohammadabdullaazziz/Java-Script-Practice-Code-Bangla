@@ -392,7 +392,7 @@ if (isRainyDay) {
 
 playMusic(); // ✓ যেখানেই কন্ডিশন মিলবে, সেই অনুযায়ী রান হবে
 
-গ্লোবাল লেভেলে (ব্লকের বাইরে): তুমি চাইলে Function Declaration ব্যবহার করতে পারো (যেমন: function myFunc() {})। এটা একদম সেফ।
+গ্লোবাল লেভেলে (ব্লকের বাইরে): চাইলে Function Declaration ব্যবহার করা যাবে (যেমন: function myFunc() {})। এটা একদম সেফ।
 
 ব্লকের ভেতরে (if-else/loop): চোখ বন্ধ করে const দিয়ে Function Expression লিখবে। (যেমন: const myFunc = function() {})।
 
