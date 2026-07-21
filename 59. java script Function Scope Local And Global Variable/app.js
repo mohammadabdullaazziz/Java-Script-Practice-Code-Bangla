@@ -710,7 +710,7 @@ I live in ${getCountry}`);
 
 userName();
 console.log(myGfName);
-last console.log() most dekhabe karon global variable 
+last console.log()
 
 
 ধারণাটি আংশিক সঠিক, তবে পুরোটা নয়। শেষ console.log(myGfName); লাইনে শুধু "Most" দেখাবে না, বরং পুরো নাম "Most Rokshana Aziz" দেখাবে।
@@ -718,7 +718,7 @@ myGfName একটি Global Variable (গ্লোবাল ভেরিয়ে�
 
 আসল কারণটি কী?
 ১. গ্লোবাল ভেরিয়েবল সব জায়গা থেকে পরিবর্তন করা যায়: myGfName ফাংশনের বাইরে (গ্লোবাল স্কোপে) তৈরি করায়, এটিকে ফাংশনের ভেতর থেকেও অ্যাক্সেস এবং পরিবর্তন করা সম্ভব।
-২. ফাংশনটি আগেই রান হয়েছে: তুমি শেষ console.log(myGfName) করার আগে userName(); ফাংশনটিকে কল করেছ।
+২. ফাংশনটি আগেই রান হয়েছে: শেষ console.log(myGfName) করার আগে userName(); ফাংশনটিকে কল করা হয়েছে।
 
 ফাংশনটি যখন রান হয়েছে, তখন তার ভেতরের এই লাইনটি এক্সিকিউট হয়েছে:
 
