@@ -22,19 +22,41 @@ const addNumbers = (a, b) => {
 
 ----------------
 
-function showMyname () {
-    console.log("Abdullah Aziz");
+'use strict';
+
+function showMyName(firstName, lastName) {
+   let fullName = firstName + " " + lastName;
+   return fullName;
 }
 
-showMyname()
+let details = showMyName("Mohammad", "Aziz");
+console.log(details);
 
 
 
-let showMyName = function() {
-    console.log("Abdullah Aziz");
+
+
+let showMyName = function (firstName, lastName) {
+   let fullName = firstName + " " + lastName;
+   return fullName;
 };
 
-showMyName()
+let details = showMyName("Mohammad", "Aziz");
+console.log(details);
+
+
+
+
+let showMyName = (firstName, lastName) => {
+   let fullName = firstName + " " + lastName;
+   return fullName;
+};
+let details = showMyName("Mohammad", "Aziz");
+console.log(details);
+
+
+
+
 
 
 Function Expression-এর শর্টকাট কি Arrow Function?
