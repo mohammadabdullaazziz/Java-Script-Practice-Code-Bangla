@@ -1,4 +1,4 @@
-Callback Function কি?
+   Callback Function কি?
 
 একটি ফাংশনের ভেতরে যখন অন্য একটি ফাংশনকে আর্গুমেন্ট হিসেবে পাঠানো হয় এবং প্রথম ফাংশনের কাজ শেষে বা ভেতরে দ্বিতীয় ফাংশনটিকে ডেকে (Call করে) চালানো হয়, 
 তখন সেই দ্বিতীয় ফাংশনটিকে Callback Function বলে।
@@ -209,3 +209,214 @@ processTask শুরু হলো ➔ নিজস্ব ১ম কনসোল
 cb() কল হলো ➔ মানে sayGoodbye() শুরু হলো।
 
 sayGoodbye() এর ভেতরে থাকা ২য় কনসোল প্রিন্ট হলো।
+
+
+
+
+
+Callbacks-এর আসল এনাটমি (Anatomy)
+  
+
+সহজ কথায়: কলব্যাক হলো একটি ফাংশন যা অন্য একটি ফাংশনের ভেতরে আর্গুমেন্ট (Argument) হিসেবে পাস করা হয় এবং মূল কাজ শেষে তাকে কল (Call) করা হয়।
+
+// ১. মেইন ফাংশন (Higher-Order Function)
+function doMath(a, b, callback) {
+    let result = a * b;
+    callback(result); // এখানে কলব্যাক ফাংশনটিকে ডেকে দেওয়া হলো
+}
+
+// ২. কলব্যাক ফাংশন
+function printOutput(data) {
+    console.log("Calculated Value: " + data);
+}
+
+// ৩. পাস করা হলো
+doMath(4, 5, printOutput); // Output: Calculated Value: 20
+
+
+
+
+  
+
+কলব্যাক লেখার ৩টি ভিন্ন স্টাইল (Writing Styles)
+
+স্টাইল ১: Named Function (আলাদা নাম দিয়ে)
+
+function greet(name) {
+    console.log("Hello " + name);
+}
+
+function getUser(callback) {
+    let name = "Rahim";
+    callback(name);
+}
+
+getUser(greet);
+
+
+
+স্টাইল ২: Anonymous Function (সরাসরি ভেতরে নাম ছাড়া)
+
+function getUser(callback) {
+    let name = "Karim";
+    callback(name);
+}
+
+getUser(function(name) {
+    console.log("Hello " + name);
+});
+
+
+স্টাইল ৩: Arrow Function (আধুনিক ES6 পদ্ধতি)
+
+const getUser = (callback) => {
+    let name = "Sakib";
+    callback(name);
+};
+
+getUser((name) => console.log("Hello " + name));
+
+
+  
+
+Synchronous vs Asynchronous Callbacks
+কলব্যাক প্রধানত দুই ধরনের কাজ করে:
+
+ক. Synchronous Callback (সাথে সাথে রান হয়)
+যেসব কলব্যাক সাথে সাথেই এক্সিকিউট হয়। যেমন জাভাস্ক্রিপ্টের built-in array methods:
+
+const numbers = [1, 2, 3, 4, 5];
+
+// forEach-এর ভেতরে থাকা অ্যারো ফাংশনটি একটি Synchronous Callback
+numbers.forEach((num) => {
+    console.log("Number: " + num);
+});
+
+
+খ. Asynchronous Callback (অপেক্ষা করে পরে রান হয়)
+যেসব কাজ শেষ হতে সময় লাগে (যেমন: টাইমার, সার্ভার থেকে ডাটা আনা, ফাইল রিড করা):
+
+console.log("1. Order Placed");
+
+// setTimeout এর ভেতরে থাকা ফাংশনটি ৩ সেকেন্ড পর রান হবে
+setTimeout(() => {
+    console.log("2. Food is ready!");
+}, 3000);
+
+console.log("3. Sitting at the table");
+
+
+
+  
+একাধিক কলব্যাক পাস করা (Multiple Callbacks)
+
+function checkAge(age, successCallback, errorCallback) {
+    if (age >= 18) {
+        successCallback("Access Granted!");
+    } else {
+        errorCallback("Access Denied! You are too young.");
+    }
+}
+
+const showSuccess = (msg) => console.log("SUCCESS: " + msg);
+const showError = (msg) => console.log("ERROR: " + msg);
+
+checkAge(20, showSuccess, showError); // Output: SUCCESS: Access Granted!
+checkAge(15, showSuccess, showError); // Output: ERROR: Access Denied! You are too young.
+
+
+  
+Callback-এর সবচেয়ে বড় সমস্যা: Callback Hell
+
+// এটি হলো Callback Hell এর একটি কাল্পনিক দৃশ্য:
+getUserData(userId, (user) => {
+    getOrders(user.id, (orders) => {
+        getOrderDetails(orders[0].id, (details) => {
+            getShippingStatus(details.id, (status) => {
+                console.log("Status: " + status);
+            });
+        });
+    });
+});
+
+
+
+
+
+
+  
+
+🎯 Callback-এর চেকলিস্ট (মনে রাখার শেষ ৪টি কথা)
+কলব্যাক কী? অন্য ফাংশনের পেটে প্যারামিটার হিসেবে যাওয়া ফাংশন।
+
+ভুল করা যাবে না: পাস করার সময় myFunction() ব্র্যাকেট দেওয়া যাবে না, শুধু নাম myFunction পাঠাতে হবে।
+
+কেন দরকার? একটা কাজ শেষ হওয়ার পর ঠিক তখনই আরেকটা কাজ চালু করার নিশ্চয়তা পাওয়ার জন্য।
+
+পরবর্তী ধাপ: কলব্যাকের জটিলতা কাটানোর জন্য আমরা শিখবো Promises!
+
+
+
+
+
+
+function details(cb){
+  let name = "Abdullah";
+  cb(name); // 💥 ২. এখানে এসেই কোড ভেঙে যাবে!
+}
+
+details(); // 👈 ১. আপনি কোনো কলব্যাক ফাংশন না পাঠিয়েই ডাকলেন
+
+ধাপ ১:
+যখন details() লিখা হল (ব্র্যাকেট খালি রেখে), তখন details ফাংশনের cb প্যারামিটারের মধ্যে কী গেল?
+
+👉 কিছুই যায়নি! তাই cb হয়ে গেল undefined (ফাঁকা)।
+
+ধাপ ২:
+
+ফাংশনের ১ম লাইন চলল: let name = "Abdullah"; (ঠিক আছে)।
+
+ধাপ ৩ (ক্র্যাশ!):
+  
+ফাংশনটি ২য় লাইনে এসে পেল: cb(name);
+
+যেহেতু cb এখন undefined, কম্পিউটার এটাকে পড়তে চেষ্টা করে এভাবে: undefined("Abdullah");
+
+এখন বলুন, undefined কি কোনো ফাংশন? না!
+
+তাই জাভাস্ক্রিপ্ট সাথে সাথে লাল রঙের একটি মারাত্মক এরর দিয়ে দেবে:
+
+❌ TypeError: cb is not a function
+
+💡 তাহলে ভুলটা এড়ানোর সঠিক নিয়ম কী?
+  
+যদি চাওয়া হয় যে  কন না পাঠালেও যেন কোড ক্র্যাশ না করে, তাহলে ২টি উপায় আছে:
+
+উপায় ১: একটা if দিয়ে চেক করে নেওয়া (নিরাপদ উপায়)
+
+
+function details(cb){
+  let name = "Abdullah";
+  
+  // যদি cb একটা ফাংশন হয়, তবেই রান করো!
+  if (typeof cb === "function") {
+      cb(name);
+  } else {
+      console.log("Name is: " + name);
+  }
+}
+
+details(); // এখন আর এরর দেবে না! Output: Name is: Abdullah
+
+
+
+function details(cb){
+  let name = "Abdullah";
+  cb(name);
+}
+
+// সঠিকভাবে কলব্যাক ফাংশন পাস করা হলো
+details((data) => {
+   console.log("My name is " + data);
+}); 
+// Output: My name is Abdullah
