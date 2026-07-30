@@ -6,6 +6,48 @@
 
 ২. তারপর মূল ফাংশন ডাকার সময় সেই নামটা তার ব্র্যাকেটের ভেতর পার্সেল হিসেবে পাঠিয়ে দেবেন।
 
+
+
+প্যারামিটারের পজিশন অনুযায়ী ১ম পদে নাম, ২য় পদে বয়স এবং ৩য় পদে ফাংশন পাঠাতে হবে:
+
+function getMyName(myName) {
+    console.log(myName);
+}
+
+let details = function(name, age, cb) {
+    name = "Abdullah";
+    age = 30;
+    let result = `${name} ${age}`;
+    cb(result);
+};
+
+// ৩ নম্বর পজিশনে getMyName পাঠাতে হবে
+details("", 0, getMyName);
+
+
+
+যেহেতু details-এর ভেতরেই name = "Abdullah" এবং age = 30 সেট করা হয়েছে, তাই details-এর প্যারামিটার থেকে name আর age বাদ দিয়ে শুধু cb রাখা যাবে:
+
+function getMyName(myName) {
+    console.log(myName);
+}
+
+// শুধুমাত্র cb প্যারামিটার রাখা হলো
+let details = function(cb) {
+    let name = "Abdullah";
+    let age = 30;
+    let result = `${name} ${age}`;
+    cb(result);
+};
+
+// এবার ১টি পাঠালেই কাজ করবে!
+details(getMyName);
+
+
+
+
+
+
 এখানে কোনো নাম ছাড়া কাজ নেই, কোনো পেঁচানো সিম্বল নেই—সবকিছু একদম স্পষ্ট নামওয়ালা!
 
 
