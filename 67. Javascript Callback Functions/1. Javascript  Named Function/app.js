@@ -114,8 +114,39 @@ createAccount("Abdullah", showSuccessMessage);
 
 Processing database for Abdullah...
 Welcome Abdullah! Your account creation was successful.
+  
+Function Expression (ভ্যারিয়েবলে ফাংশন রেখে)
+এখানে আলাদা ফাংশন হিসেবে না লিখে একটি ভ্যারিয়েবলের (const বা let) ভেতরে ফাংশনটি জমা রেখে পাস করা হয়:
+
+// ১. ভ্যারিয়েবলে কলব্যাক ফাংশন রাখা
+const showSuccessMessage = function(user) {
+    console.log("Welcome " + user + "! Your account creation was successful.");
+};
+
+// ২. মূল ফাংশন
+const createAccount = function(username, notifyUser) {
+    console.log("Processing database for " + username + "...");
+    notifyUser(username);
+};
+
+// ৩. পাস করা হলো
+createAccount("Abdullah", showSuccessMessage);
 
 
+One-liner Arrow Function (এক লাইনে সংক্ষিপ্ত রূপ)
+কলব্যাক ফাংশনের কাজ যদি মাত্র ১ লাইনের হয়, তবে ব্র্যাকেট {} ও console.log একদম এক লাইনে লিখে ফেলা যায়:
+
+const createAccount = (username, notifyUser) => {
+    console.log("Processing database for " + username + "...");
+    notifyUser(username);
+};
+
+// এক লাইনে শর্টকাট অ্যারো কলব্যাক
+createAccount("Abdullah", user => console.log(`Welcome ${user}! Your account creation was successful.`));
+
+
+
+  
   
 স্টুডেন্ট রেজাল্ট ও গ্রেড চেকার (Academic Grade Check)
 
