@@ -4,7 +4,7 @@
   
 ১. আগে সুন্দর করে একটা নাম দিয়ে একটা ফাংশন বানিয়ে রাখা হবে।
 
-২. তারপর মূল ফাংশন ডাকার সময় সেই নামটা তার ব্র্যাকেটের ভেতর পার্সেল হিসেবে পাঠিয়ে দেবেন।
+২. তারপর মূল ফাংশন ডাকার সময় সেই নামটা তার ব্র্যাকেটের ভেতর পার্সেল হিসেবে পাঠিয়ে দেওয়া।
 
 
 
@@ -206,7 +206,15 @@ The Value is: undefined
 
 আর যেহেতু printDoubleValue ফাংশন থেকে কোনো কিছু return করা হয়নি, তাই cb-এর মধ্যে জমা হবে undefined! এরপর calculateDouble-এর ভেতরে যখন cb(double) রান হতে যাবে, তখন জাভাস্ক্রিপ্ট একটা TypeError বানিয়ে কোড ক্র্যাশ করিয়ে দেবে!
 
+function printValue(result) {
+  console.log(`Value is: ${result}`);
+}
 
+let numberValue = function(number, cb) {
+  cb(number * 5); // সরাসরি গুণফল পাস করা হলো
+};
+
+numberValue(5, printValue);
 
 
 
@@ -227,9 +235,10 @@ function createAccount(username, notifyUser) {
 // 3. Passing the function name (showSuccessMessage) when calling createAccount
 createAccount("Abdullah", showSuccessMessage);
 
-
 Processing database for Abdullah...
 Welcome Abdullah! Your account creation was successful.
+
+
   
 Function Expression (ভ্যারিয়েবলে ফাংশন রেখে)
 এখানে আলাদা ফাংশন হিসেবে না লিখে একটি ভ্যারিয়েবলের (const বা let) ভেতরে ফাংশনটি জমা রেখে পাস করা হয়:
@@ -247,6 +256,21 @@ const createAccount = function(username, notifyUser) {
 
 // ৩. পাস করা হলো
 createAccount("Abdullah", showSuccessMessage);
+
+
+function showSuccessMessage(user) {
+    console.log(`Welcome ${user}! Your account creation was successful.`);
+}
+
+function createAccount(username, notifyUser) {
+    console.log(`Processing database for ${username}...`);
+    notifyUser(username);
+}
+
+createAccount("Abdullah", showSuccessMessage);
+
+
+
 
 
 One-liner Arrow Function (এক লাইনে সংক্ষিপ্ত রূপ)
@@ -285,8 +309,6 @@ function processExamResult(writtenMarks, vivaMarks, callback) {
 
 // Step 3: Calling the main function
 processExamResult(60, 25, displayGrade);
-
-
 
 🔍 মান কীভাবে ঘুরছে (Data Flow Trace):
 60 গেল writtenMarks-এ, 25 গেল vivaMarks-এ, আর displayGrade নামটা গেল callback-এ।
