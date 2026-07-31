@@ -49,26 +49,19 @@ details(getMyName);
 
 
 function getMyName(myResult) {
-  console.log(`My Name is: ${myResult}`);
+  console.log(myResult);
 }
 
 let details = function(cb) {
   let name = "Abdullah Aziz";
   let age = 30;
   let height = 5.2;
-
-  // ৩টি মান আলাদা করে ৩ বার কলব্যাকে পাস করা হলো
-  cb(name);
-  cb(age);
-  cb(height);
+  cb("My name is: " + name);
+  cb("My age is: " + age);
+  cb("My height is: " + height);
 };
 
 details(getMyName);
-
-
-My Name is: Abdullah Aziz
-My Name is: 30
-My Name is: 5.2
 
 
 
@@ -78,36 +71,35 @@ My Name is: 5.2
 যদি details ফাংশনের ভেতরে ম্যানুয়ালি ৩ বার cb() না লিখতে না চাওয়া হয়, তবে একটা অ্যারে বানিয়ে forEach লুপ দিয়েও কাজটা করা যাবে:
 
 
-function getMyName(myResult) {
-  console.log(`My Name is: ${myResult}`);
+function printInfo(myResult) {
+  console.log(myResult); // শুধু মান প্রিন্ট করবে
 }
 
 let details = function(cb) {
-  let name = "Abdullah Aziz";
-  let age = 30;
-  let height = 5.2;
+  let name = "Name: Abdullah Aziz";
+  let age = "Age: 30";
+  let height = "Height: 5.2";
 
   let infoArray = [name, age, height];
 
-  // অ্যারের প্রতিটি উপাদানের জন্য কলব্যাক রান হবে
   infoArray.forEach(item => cb(item));
 };
 
-details(getMyName);
+details(printInfo);
 
 
 
 অবজেক্ট (Object) ব্যবহার করে (সবচেয়ে স্মার্ট ও স্ট্যান্ডার্ড পদ্ধতি)
 
 
-// ১. কলব্যাক ফাংশন (যে লেবেলসহ প্রিন্ট করবে)
+// ১. কলব্যাক ফাংশন (যে অবজেক্ট ডাটা গ্রহণ করে লেবেলসহ প্রিন্ট করে)
 function displayInfo(data) {
   console.log(`Name: ${data.name}`);
   console.log(`Age: ${data.age}`);
   console.log(`Height: ${data.height}`);
 }
 
-// ২. মূল ফাংশন
+// ২. মূল ফাংশন (যে অবজেক্ট তৈরি করে কলব্যাকে পাঠায়)
 let details = function(cb) {
   let user = {
     name: "Abdullah Aziz",
@@ -115,18 +107,17 @@ let details = function(cb) {
     height: 5.2
   };
 
-  // অবজেক্টটিকে কলব্যাকে পাস করা হলো
+  // পুরো অবজেক্টটিকে ১ বার কলব্যাকে পাস করা হলো
   cb(user);
 };
 
-// ৩. রান করা হলো
+// ৩. ফাংশন রান করা হলো
 details(displayInfo);
+
 
 
 কলব্যাক ফাংশনে ২টি প্যারামিটার পাঠিয়ে (Label & Value)
 যদি  মূল ফাংশন ভেতর থেকে ৩ বার কলব্যাক ডাকবে এবং প্রতিবারে লেবেল ও ভ্যালু জোড়া হিসেবে পাঠাবে:
-
-
 
 // ১. কলব্যাক ফাংশন ২টি জিনিস রিসিভ করবে: label এবং value
 function displayWithLabel(label, value) {
