@@ -45,6 +45,131 @@ details(getMyName);
 
 
 
+💡 সবচেয়ে সহজ পদ্ধতি (কলব্যাককে ৩ বার আলাদাভাবে ডেকে):
+
+
+function getMyName(myResult) {
+  console.log(`My Name is: ${myResult}`);
+}
+
+let details = function(cb) {
+  let name = "Abdullah Aziz";
+  let age = 30;
+  let height = 5.2;
+
+  // ৩টি মান আলাদা করে ৩ বার কলব্যাকে পাস করা হলো
+  cb(name);
+  cb(age);
+  cb(height);
+};
+
+details(getMyName);
+
+
+My Name is: Abdullah Aziz
+My Name is: 30
+My Name is: 5.2
+
+
+
+🔍 বিকল্প পদ্ধতি (অ্যারে ব্যবহার করে লুপ চালিয়ে):
+
+
+যদি details ফাংশনের ভেতরে ম্যানুয়ালি ৩ বার cb() না লিখতে না চাওয়া হয়, তবে একটা অ্যারে বানিয়ে forEach লুপ দিয়েও কাজটা করা যাবে:
+
+
+function getMyName(myResult) {
+  console.log(`My Name is: ${myResult}`);
+}
+
+let details = function(cb) {
+  let name = "Abdullah Aziz";
+  let age = 30;
+  let height = 5.2;
+
+  let infoArray = [name, age, height];
+
+  // অ্যারের প্রতিটি উপাদানের জন্য কলব্যাক রান হবে
+  infoArray.forEach(item => cb(item));
+};
+
+details(getMyName);
+
+
+
+অবজেক্ট (Object) ব্যবহার করে (সবচেয়ে স্মার্ট ও স্ট্যান্ডার্ড পদ্ধতি)
+
+
+// ১. কলব্যাক ফাংশন (যে লেবেলসহ প্রিন্ট করবে)
+function displayInfo(data) {
+  console.log(`Name: ${data.name}`);
+  console.log(`Age: ${data.age}`);
+  console.log(`Height: ${data.height}`);
+}
+
+// ২. মূল ফাংশন
+let details = function(cb) {
+  let user = {
+    name: "Abdullah Aziz",
+    age: 30,
+    height: 5.2
+  };
+
+  // অবজেক্টটিকে কলব্যাকে পাস করা হলো
+  cb(user);
+};
+
+// ৩. রান করা হলো
+details(displayInfo);
+
+
+কলব্যাক ফাংশনে ২টি প্যারামিটার পাঠিয়ে (Label & Value)
+যদি  মূল ফাংশন ভেতর থেকে ৩ বার কলব্যাক ডাকবে এবং প্রতিবারে লেবেল ও ভ্যালু জোড়া হিসেবে পাঠাবে:
+
+
+
+// ১. কলব্যাক ফাংশন ২টি জিনিস রিসিভ করবে: label এবং value
+function displayWithLabel(label, value) {
+  console.log(`${label}: ${value}`);
+}
+
+// ২. মূল ফাংশন
+let details = function(cb) {
+  let name = "Abdullah Aziz";
+  let age = 30;
+  let height = 5.2;
+
+  // লেবেল সহ ৩ বার আলাদাভাবে পাস করা হলো
+  cb("Name", name);
+  cb("Age", age);
+  cb("Height", height);
+};
+
+// ৩. রান করা হলো
+details(displayWithLabel);
+
+
+অ্যারে অবজেক্ট (Array of Objects) ব্যবহার করে লুপ চালিয়ে
+
+যদি ভবিষ্যতে আরও অনেক বেশি তথ্য থাকে, তবে অ্যারের ভেতর অবজেক্ট হিসেবে রেখে লুপ চালানো যায়:
+
+function printItem(item) {
+  console.log(`${item.label}: ${item.value}`);
+}
+
+let details = function(cb) {
+  let infoList = [
+    { label: "Name", value: "Abdullah Aziz" },
+    { label: "Age", value: 30 },
+    { label: "Height", value: 5.2 }
+  ];
+
+  // forEach লুপের মাধ্যমে প্রতিটি আইটেমকে কলব্যাকে পাঠানো হচ্ছে
+  infoList.forEach(info => cb(info));
+};
+
+details(printItem);
+
 
 
 
