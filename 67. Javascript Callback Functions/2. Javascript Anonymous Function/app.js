@@ -704,63 +704,57 @@ Total bill: 300 TK.
 
 Named Function
 
-// ১. সাকসেস মেসেজ দেখানোর কলব্যাক ফাংশন
-function showPasswordSuccess(message) {
+
+function showSuccess(message) {
+  console.log("✅ " + message);
+}
+
+function showError(m) {
+  console.log("❌ " + m);
+}
+
+function checkPassword(password, cbSuccess, cbError) {
+    if (password.length >= 6) {
+      cbSuccess("Password is strong and valid!");
+    } else {
+      cbError("Password is too short! Must be at least 6 characters.");
+    }
+}
+
+checkPassword("123456", showSuccess, showError);
+checkPassword("abc", showSuccess, showError);
+
+
+
+Anonymous Function
+
+// মূল ফাংশন (প্যারামিটার আগের মতোই থাকবে)
+function checkPassword(password, cbSuccess, cbError) {
+    if (password.length >= 6) {
+      cbSuccess("Password is strong and valid!");
+    } else {
+      cbError("Password is too short! Must be at least 6 characters.");
+    }
+}
+
+// ১. পাসওয়ার্ড সঠিক হলে (সরাসরি ব্র্যাকেটের ভেতরে অ্যানোনিমাস ফাংশন):
+checkPassword(
+  "123456", 
+  function(message) {
     console.log("✅ " + message);
-}
-
-// ২. এরর মেসেজ দেখানোর কলব্যাক ফাংশন
-function showPasswordError(message) {
-    console.log("❌ " + message);
-}
-
-// ৩. মূল ফাংশন (পাসওয়ার্ড চেক করার জন্য)
-function checkPassword(password, onSuccess, onError) {
-    if (password.length >= 6) {
-        onSuccess("Password is strong and valid!");
-    } else {
-        onError("Password is too short! Must be at least 6 characters.");
-    }
-}
-
-// ৪. মেইন ফাংশন কল করা হলো
-checkPassword("123456", showPasswordSuccess, showPasswordError);
-checkPassword("abc", showPasswordSuccess, showPasswordError);
-
-
-Anonymous Function
-
-// ১. মূল ফাংশন (পাসওয়ার্ডের দৈর্ঘ্য চেক করার জন্য)
-function checkPassword(password, onSuccess, onError) {
-    if (password.length >= 6) {
-        onSuccess("Password is strong and valid!");
-    } else {
-        onError("Password is too short! Must be at least 6 characters.");
-    }
-}
-
-// ২. ২য় ও ৩য় আর্গুমেন্টে সরাসরি Anonymous Functions পাস করা হলো
-checkPassword("123456", 
-    function(message) {
-        console.log("✅ " + message);
-    }, 
-    function(message) {
-        console.log("❌ " + message);
-    }
+  }, 
+  function(m) {
+    console.log("❌ " + m);
+  }
 );
 
-checkPassword("abc", 
-    function(message) {
-        console.log("✅ " + message);
-    }, 
-    function(message) {
-        console.log("❌ " + message);
-    }
+// ২. পাসওয়ার্ড ভুল হলে:
+checkPassword(
+  "abc", 
+  function(message) {
+    console.log("✅ " + message);
+  }, 
+  function(m) {
+    console.log("❌ " + m);
+  }
 );
-
-
-
-
-Named Function
-
-Anonymous Function
