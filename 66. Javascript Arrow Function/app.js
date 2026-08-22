@@ -56,6 +56,11 @@ console.log(details);
 
 
 
+// এক লাইনে রিটার্ন
+let showMyName = (firstName, lastName) => firstName + " " + lastName;
+
+console.log(showMyName("Mohammad", "Aziz")); // Output: Mohammad Aziz
+
 
 
 
@@ -178,6 +183,12 @@ console.log(greet("Abdullah")); // আউটপুট: "Hello, Abdullah"
 ⚠️ সতর্কতা: যদি কোনো প্যারামিটার না থাকে, অথবা একের বেশি প্যারামিটার থাকে, তবে অবশ্যই () ব্র্যাকেট দিতে হবে। (যেমন: () => "Hi!")
 
 
+let sayHello = () => "Hello World!";
+
+console.log(sayHello()); // Output: Hello World!
+
+
+
 
 
 অবজেক্ট রিটার্ন করার ক্ষেত্রে
@@ -254,3 +265,59 @@ setTimeout/setInterval-এর ভেতরে যেখানে বাইরে
 
 
 
+
+
+let getInfo = (name, age) => `${name} is ${age} years old.`;
+
+console.log(getInfo("Mohammad", 25)); // Mohammad is 25 years old.
+
+
+
+let addNumbers = (a, b) => a + b;
+
+console.log(addNumbers(15, 25)); // 40
+
+
+
+let checkPass = mark => mark >= 40 ? "Pass" : "Fail";
+
+console.log(checkPass(75)); // Pass
+
+
+let makeUpper = text => text.toUpperCase();
+
+console.log(makeUpper("bangladesh")); // BANGLADESH
+
+
+
+let getDiscount = price => price - (price * 0.10); // ১০% ডিসকাউন্ট
+
+console.log(getDiscount(500)); // 450
+
+
+
+let getTotal = (price, tax) => `Total Price: ${price + tax}`;
+
+console.log(getTotal(100, 15)); // Total Price: 115
+
+
+
+
+function checkPass(mark) {
+    if (mark >= 40) {
+        return "Pass";
+    } else {
+        return "Fail";
+    }
+}
+
+console.log(checkPass(75)); // Output: Pass
+
+
+
+
+function checkPass(mark) {
+    return mark >= 40 ? "Pass" : "Fail";
+}
+
+console.log(checkPass(75)); // Output: Pass
