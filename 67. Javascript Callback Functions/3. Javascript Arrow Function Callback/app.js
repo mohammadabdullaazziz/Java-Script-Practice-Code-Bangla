@@ -26,6 +26,29 @@ processUser("Abdullah", () => {
 
 
 
+১. "মেইন ফাংশনের Variable লাগবেই" (Parameter/Data passing)
+হ্যাঁ, মেইন ফাংশন যখন কলব্যাক ফাংশনটিকে এক্সিকিউট করবে, তখন কলব্যাক ফাংশনের কাজ সম্পন্ন করার জন্য মেইন ফাংশনের ভেতরের কোনো ডেটা বা ভ্যারিয়েবল তাকে আর্গুমেন্ট হিসেবে পাঠাতেই হবে।
+
+২. "Arrow Function এর নাম না থাকলেও চলবে" (Anonymous Function)
+একদম সত্য! অ্যারো ফাংশন সবসময় Anonymous (বেনামী) হয়। অর্থাৎ এর নিজস্ব কোনো নামের প্রয়োজন হয় না। সরাসরি মেইন ফাংশনের আর্গুমেন্ট হিসেবে এটিকে বসিয়ে দেওয়া যায়।
+
+
+// ১. মেইন ফাংশন (যেখানে কলব্যাক কল হবে)
+function processUser(name, callback) {
+    let greetingText = "Hello " + name; // মেইন ফাংশনের তৈরি করা ভ্যারিয়েবল
+    
+    // কলব্যাক ফাংশনকে মেইন ফাংশনের ভ্যারিয়েবলটি আর্গুমেন্ট হিসেবে পাঠানো হচ্ছে
+    return callback(greetingText); 
+}
+
+// ২. মেইন ফাংশন কল করার সময় নামহীন (Anonymous) অ্যারো ফাংশন পাঠানো হলো
+let result = processUser("Mohammad", text => `${text}, welcome to JS!`);
+
+console.log(result); 
+// Output: Hello Mohammad, welcome to JS!
+
+
+
 
 
 let details = function(name, age, cb) {
@@ -330,3 +353,113 @@ checkPassword("abc",
 
 ✅ Password is strong and valid!
 ❌ Password is too short! Must be at least 6 characters.
+
+
+
+
+  ক্যালকুলেটর সার্ভিস (Custom Higher-Order Function)
+মেইন ফাংশন দুটি সংখ্যা প্রসেস করে মেইন রেজাল্ট তৈরি করবে, আর কলব্যাক অ্যারো ফাংশন ঠিক করবে আউটপুট কীভাবে ফরম্যাট হবে।
+
+
+// মেইন ফাংশন
+function calculate(a, b, formatterCallback) {
+    let sum = a + b; // মেইন ফাংশনের অভ্যন্তরীণ ভ্যারিয়েবল
+    return formatterCallback(sum); // ভ্যারিয়েবলটি কলব্যাকে পাঠানো হলো
+}
+
+// নামহীন অ্যারো ফাংশন দিয়ে কল করা
+let result1 = calculate(50, 20, total => `Total Amount: ${total}`);
+let result2 = calculate(50, 20, total => `Mot Taka: ${total} BDT`);
+
+console.log(result1); // Output: Total Amount: 70
+console.log(result2); // Output: Mot Taka: 70 BDT
+
+লজিক: মেইন ফাংশনে যোগফল বের হওয়া ভ্যারিয়েবল sum-কে অ্যারো ফাংশনের প্যারামিটার total-এ পাঠানো হচ্ছে। অ্যারো ফাংশনটি তার মতো করে ফরম্যাট করে রিটার্ন দিচ্ছে।
+
+
+
+কেনাকাটার ডিসকাউন্ট ক্যালকুলেটর
+মেইন অ্যারো ফাংশন ডিসকাউন্ট হিসাব করবে এবং রেজাল্টটি নামহীন কলব্যাক অ্যারো ফাংশনে পাঠিয়ে দেবে।
+
+// ১. মেইন অ্যারো ফাংশন
+const processBill = (price, discountPercent, callback) => {
+    let finalPrice = price - (price * (discountPercent / 100)); // মেইন ভ্যারিয়েবল
+    return callback(finalPrice); // কলব্যাকে ভ্যারিয়েবল পাঠানো হলো
+};
+
+// ২. কল করার সময় নামহীন কলব্যাক অ্যারো ফাংশন পাঠানো হলো
+let output = processBill(1000, 20, total => `আপনার বিল: ${total}`);
+
+console.log(output); // Output: আপনার বিল: 800
+
+
+
+
+ইউজার গ্রেড ফিল্টার (Student Marks)
+মার্কসের ওপর ভিত্তি করে পাস বা ফেল মেসেজ তৈরি করার লজিক:
+
+// মেইন অ্যারো ফাংশন
+const checkStudent = (marks, callback) => {
+    let status = marks >= 40 ? "Pass" : "Fail"; // মেইন ভ্যারিয়েবল
+    return callback(status, marks); 
+};
+
+// নামহীন কলব্যাক অ্যারো ফাংশন দিয়ে কল
+let result = checkStudent(75, (status, score) => `Result: ${status} with ${score} marks.`);
+
+console.log(result); // Output: Result: Pass with 75 marks.
+
+
+
+
+পাসওয়ার্ড ভ্যালিডেটর
+পাসওয়ার্ড চেক করে লেন্স অনুযায়ী সিদ্ধান্ত নেওয়ার সহজ কোড:
+
+// মেইন অ্যারো ফাংশন
+const validatePassword = (pass, callback) => {
+    let isValid = pass.length >= 8; // মেইন ভ্যারিয়েবল
+    return callback(isValid);
+};
+
+// নামহীন কলব্যাক অ্যারো ফাংশন
+let check = validatePassword("myPass123", valid => valid ? "Password Strong" : "Password Weak");
+
+console.log(check); // Output: Password Strong
+
+
+
+কলব্যাকে একাধিক ভ্যারিয়েবল পাঠানো (Multiple Variables)
+মেইন অ্যারো ফাংশন চাইলে কলব্যাকে একসাথে ২ বা তার বেশি ভ্যারিয়েবল পাঠাতে পারে:
+
+const getUserData = (id, callback) => {
+    let name = "Mohammad";
+    let status = "Active";
+    
+    // মেইন ফাংশন থেকে ২টি ভ্যারিয়েবল পাঠানো হলো
+    return callback(name, status); 
+};
+
+// নামহীন কলব্যাক অ্যারো ফাংশনে ২টি প্যারামিটার ধরা হলো
+let userInfo = getUserData(101, (uName, uStatus) => `${uName} is currently ${uStatus}.`);
+
+console.log(userInfo); // Output: Mohammad is currently Active.
+
+
+
+
+রিটার্ন ছাড়াই সরাসরি কাজ করা (Side Effect Callback)
+সবসময় যে কলব্যাক থেকে return নিতে হবে তা নয়, অনেক সময় সরাসরি কনসোল বা সেভ করার কাজেও ব্যবহার হয়:
+
+const notifyUser = (msg, callback) => {
+    let formattedMsg = `[NOTIFICATION]: ${msg}`;
+    callback(formattedMsg); // কোনো return নেই, সরাসরি কল করা হলো
+};
+
+// সরাসরি কাজ সম্পন্ন করা
+notifyUser("System update ready!", text => console.log(text.toUpperCase()));
+// Output: [NOTIFICATION]: SYSTEM UPDATE READY!
+
+
+মেইন ফাংশন (Arrow): ডেটা প্রসেস করে ভ্যারিয়েবলে রাখে এবং কলব্যাককে ডাকে।
+
+কলব্যাক (Arrow): কোনো নাম ছাড়াই আর্গুমেন্ট হিসেবে বসে এবং মেইন ফাংশনের পাঠানো ভ্যারিয়েবল ধরে কাজ শেষ করে।
