@@ -534,6 +534,109 @@ console.log("Married".padEnd(20) + " : " + (married ? "Yes" : "No"));
 console.log("Balance".padEnd(20) + " : " + accountBalance.toFixed(2) + " BDT");
 
 
+console.log(`${"Name".padEnd(20)} : ${name}`);
+console.log(`${"Married".padEnd(20)} : ${married ? "Yes" : "No"}`);
+console.log(`${"Balance".padEnd(20)} : ${accountBalance.toFixed(2)} BDT`);
+
+কারণ padEnd() একটি String Method। জাভাস্ক্রিপ্টে এটি সবসময় কোনো না কোনো স্ট্রিং (String) বা স্ট্রিং ভ্যারিয়েবলের ওপর প্রয়োগ করতে হয়, একা কাজ করতে পারে না।
+
+ব্যাকটিকসের ( ) ভেতরে সাধারণ টেক্সট হিসেবে Name লিখলে সেটি কেবল একটি সাধারণ অক্ষর বা টেক্সট থাকে, তার ওপর সরাসরি মেথড চালানো যায় না।
+
+১. কেন ইনভার্টেড কমা "" দিতে হলো?
+❌ ভুল طریقہ: ${Name.padEnd(20)} ➔ এখানে জাভাস্ক্রিপ্ট মনে করবে Name নামে কোনো ভ্যারিয়েবল আছে। কিন্তু আমরা তো কোনো let Name = ... ঘোষণা করিনি! তাই Uncaught ReferenceError দেবে।
+
+✅ সঠিক طریقہ: ${"Name".padEnd(20)} ➔ এখানে "Name" ডাবল কোটেশনের ভেতরে থাকায় এটি একটি স্ট্রিং ডাটা (Text) হিসেবে গণ্য হচ্ছে। ফলে এর ওপর মেথডটি কাজ করতে পারছে।
+
+
+
+
+📝 সংজ্ঞা (Definition):
+padStart() হলো জাভাস্ক্রিপ্টের একটি স্ট্রিং মেথড। এটি কোনো স্ট্রিংয়ের শুরুতে (বাম পাশে) নির্দিষ্ট ক্যারেক্টার বা স্পেস বসিয়ে স্ট্রিংটিকে একটি কাঙ্ক্ষিত দৈর্ঘ্যে (Target Length) রূপান্তর করে।
+
+string.padStart(targetLength, padString)
+
+targetLength (আবশ্যক): প্যাডিং করার পর স্ট্রিংটি মোট কত অক্ষরের হবে।
+
+padString (ঐচ্ছিক): বাম পাশে কোন অক্ষর বা চিহ্ন দিয়ে ভরাট করা হবে (ডিফল্ট হিসেবে স্পেস " " বসে)।
+
+
+
+let text = "5";
+
+// মোট দৈর্ঘ্য হবে ৪ ক্যারেক্টার, খালি জায়গায় স্পেস বসবে
+let result = text.padStart(4);
+
+console.log(result); // Output: "   5"
+
+
+
+সংখ্যার সামনে শূন্য (0) বসানো (Digital Formatting)
+
+let month = "9";
+
+// মাস ২ ডিজিটের করতে সামনে '0' বসানো হচ্ছে
+let formattedMonth = month.padStart(2, "0");
+
+console.log(formattedMonth); // Output: "09"
+
+
+ক্রেডিট কার্ড বা ফোন নম্বর মাস্কিং (Data Masking)
+
+let last4Digits = "8890";
+
+// মোট ১৬ অক্ষরের স্ট্রিং হবে, বাকি খালি জায়গা '*' দিয়ে পূরণ হবে
+let maskedCard = last4Digits.padStart(16, "*");
+
+console.log(maskedCard); // Output: "************8890"
+
+
+ব্যাকটিকস (Template Literal) দিয়ে আউটপুট সাজানো
+
+let price = "500";
+
+// ব্যাকটিকসের ভেতরে `${ }` দিয়ে ব্যবহার
+console.log(`Total Price: ${price.padStart(10, ".")}`);
+// Output: Total Price: .......500
+
+
+⚠️ গুরুত্বপূর্ণ বিষয় (Key Rules to Remember):
+শুধুমাত্র স্ট্রিংয়ে কাজ করে: সংখ্যা (Number) নিয়ে কাজ করতে চাইলে আগে তাকে স্ট্রিংয়ে রূপান্তর করে নিতে হয় (যেমন: String(5).padStart(2, "0"))।
+
+ছোট দৈর্ঘ্যের ক্ষেত্রে কাজ করবে না: স্ট্রিংয়ের মূল দৈর্ঘ্য যদি targetLength-এর সমান বা বড় হয়, তবে মেথডটি মূল স্ট্রিংকেই পরিবর্তন ছাড়া ফেরত দেবে।
+
+
+let name = "Abdullah";
+console.log(name.padStart(5, "0")); // Output: "Abdullah" (কোনো পরিবর্তন হবে না)
+
+
+
+\n এর সাথে ${ } (Variables) এর ব্যবহার
+
+let text = `Hello World!\nWelcome to JavaScript programming.`;
+
+console.log(text);
+
+
+let name = "Mohammad Abdullah";
+let course = "Cyber Security & Web Development";
+
+let info = `Student Info:\nName: ${name}\nCourse: ${course}`;
+
+console.log(info);
+
+
+
+// \n ছাড়া সরাসরি Enter দিয়ে মাল্টিলাইন স্ট্রিং
+let receipt = `Item: Laptop
+Price: 50,000 BDT
+Status: Paid`;
+
+console.log(receipt);
+
+
+
+
+
 জাভাস্ক্রিপ্টে \n, \t, এবং \b কে বলা হয় Escape Characters। এগুলো স্ট্রিংয়ের ভেতরে বিশেষ কিছু কাজ (যেমন নতুন লাইন তৈরি করা বা জায়গা রাখা) করার জন্য ব্যবহৃত হয়।
 \n (New Line)  এটি ব্যবহার করা হয় নতুন একটি লাইন তৈরি করার জন্য।
 let message = "Hello\nMohammad"
