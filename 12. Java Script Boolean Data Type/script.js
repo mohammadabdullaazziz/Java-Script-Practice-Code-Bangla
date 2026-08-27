@@ -37,3 +37,10 @@ console.log(numTwo);
 console.log(3 > 2);
 console.log(3 < 2);
 
+
+
+let age = 20;
+
+let isAdult = age >= 18; 
+console.log(isAdult); // Output: true (কারণ ২০, ১৮ এর চেয়ে বড়)
+console.log(10 === 5); // Output: false
