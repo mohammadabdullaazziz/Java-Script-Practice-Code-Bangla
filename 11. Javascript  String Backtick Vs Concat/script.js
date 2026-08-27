@@ -60,3 +60,66 @@ Code	Result
 \r	    Carriage Return
 \t	    Horizontal Tabulator
 \v	    Vertical Tabulator */
+
+জাভাস্ক্রিপ্টে একাধিক টেক্সট জোড়া লাগানো বা ডাইনামিক ভ্যারিয়েবল যুক্ত করার দুটি প্রধান উপায় হলো:
+
+১. Concat / Addition (+) Operator: এটি পুরোনো ও ট্র্যাডিশনাল নিয়ম।
+২. Backtick / Template Literal (`): এটি ES6-এ আসা আধুনিক, পরিষ্কার এবং সবচেয়ে বেশি ব্যবহৃত নিয়ম।
+
+১. স্ট্রিং জোড়া লাগানো (String Concatenation)
+Concat (+ Operator):
+
+let firstName = "Mohammad";
+let lastName = "Abdullah";
+
+let fullName = firstName + " " + lastName;
+console.log(fullName); // Output: Mohammad Abdullah
+
+
+Backtick (Template Literal):
+
+let firstName = "Mohammad";
+let lastName = "Abdullah";
+
+let fullName = `${firstName}${lastName}`;
+console.log(fullName); // Output: Mohammad Abdullah
+
+
+ডাইনামিক হিসাব ও স্টেটমেন্ট (Dynamic Expression)
+Concat (+ Operator):
+
+let price = 500;
+let quantity = 3;
+
+let message = "Total Price: " + (price * quantity) + " BDT";
+console.log(message); // Output: Total Price: 1500 BDT
+
+Backtick (Template Literal):
+
+let price = 500;
+let quantity = 3;
+
+let message = `Total Price: ${price * quantity} BDT`;
+console.log(message); // Output: Total Price: 1500 BDT
+
+
+
+৩. মাল্টি-লাইন স্ট্রিং (Multi-line Strings)
+HTML টেমপ্লেট বা একাধিক লাইনের টেক্সট তৈরি করার ক্ষেত্রে ব্যাকটিক ব্যবহার করলে কোড অনেক পরিচ্ছন্ন থাকে।
+
+Concat (+ Operator):
+
+let htmlCard = "<div>\n" +
+               "  <h2>Mohammad Abdullah</h2>\n" +
+               "  <p>Developer</p>\n" +
+               "</div>";
+
+
+ Backtick (Template Literal):
+
+ let htmlCard = `
+<div>
+  <h2>Mohammad Abdullah</h2>
+  <p>Developer</p>
+</div>
+`;
