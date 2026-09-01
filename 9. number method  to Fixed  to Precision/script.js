@@ -309,6 +309,11 @@ Number.isFinite() হলো JavaScript-এর একটি বিল্ট-ই�
 
 দশমিক ও পূর্ণসংখ্যা উভয় ক্ষেত্রেই: এটি দশমিক (100.55) এবং পূর্ণসংখ্যা (100)—দুটোকেই true বলবে, কারণ দুটোই সসীম (Finite) সংখ্যা।
 
+Number.isFinite() অবজেক্ট বা অ্যারেতে কাজ করে না—এগুলোতে দিলে সবসময় false আসে।
+
+মূলত Number (সংখ্যা) টাইপ ছাড়া আর কোনো ডাটা টাইপেই Number.isFinite() কাজ করে না (সবক্ষেত্রেই false দেয়)।
+
+
 
 এটি কীভাবে কাজ করে?
 মেথডটি মূলত দুটি শর্ত পরীক্ষা করে:
@@ -328,8 +333,41 @@ Number.isFinite() হলো JavaScript-এর একটি বিল্ট-ই�
 একটি বইয়ের পাতার সংখ্যা (২০০টি), বা ২৪ ঘণ্টার একদিন।
 প্রোগ্রামিং উদাহরণ: 100, 5.5, -50 ইত্যাদি হলো Finite Numbers (সসীম সংখ্যা)। কারণ এগুলোর নির্দিষ্ট একটি মান আছে।
 📌 ২. অসীম (Infinite)অর্থ: যার কোনো শেষ বা সীমানা নেই; যা কখনো গণনা করে শেষ করা যায় না (যা চিরকাল চলতেই থাকে)।বাস্তব উদাহরণ: 
-মহাবিশ্বের ব্যাপ্তি, আকাশের তারার সংখ্যা, বা স্বাভাবিক সংখ্যার গণনা ($1, 2, 3, 4, 5...$ এটি চলতেই থাকবে, কখনো শেষ হবে না)
+মহাবিশ্বের ব্যাপ্তি, আকাশের তারার সংখ্যা, বা স্বাভাবিক সংখ্যার গণনা (1, 2, 3, 4, 5... এটি চলতেই থাকবে, কখনো শেষ হবে না)
 ।প্রোগ্রামিং উদাহরণ: যেকোনো সংখ্যাকে শূন্য (0) দিয়ে ভাগ করলে তার ফলাফল হয় অসীম।জাভাস্ক্রিপ্টে একে Infinity বলা হয় (যেমন: 1 / 0 = Infinity)।
+
+Number.isFinite() দিয়ে অক্ষরের দৈর্ঘ্য গণনা করা হয় না—এটি দিয়ে মানটি কোনো বৈজ্ঞানিক/গাণিতিক সসীম সংখ্যা (Finite Number) কি না তা চেক করা হয়।
+
+let text = "Bangladesh";
+let result = Number.isFinite(text);
+
+console.log(result); // Output: false
+
+🔍 কেন false এলো?
+Number.isFinite()-এর কাজ: এটি চেক করে ইনপুটটির ডাটা টাইপ Number (সংখ্যা) কি না এবং সেই সংখ্যাটি সসীম কি না।
+
+text একটি স্ট্রিং: "Bangladesh" কোনো সংখ্যা (Number) নয়, এটি একটি Text/String Data।
+
+টাইপ ভিন্ন হওয়ায়: যেহেতু ইনপুটটি সংখ্যাই নয়, তাই Number.isFinite() সরাসরি false রিটার্ন করে।
+
+অক্ষরের সংখ্যা গোনার জন্য .length ব্যবহার করতে হয়:
+
+let text = "Bangladesh";
+
+// ১. অক্ষরের সংখ্যা (Length) কত বের করা
+let len = text.length; // 10
+
+// ২. এখন 'len' (10) একটি সসীম সংখ্যা কি না চেক করা
+let result = Number.isFinite(len);
+
+console.log(result); // Output: true (কারণ 10 একটি সসীম সংখ্যা)
+
+📝 মূল পার্থক্য (সংক্ষেপে):
+"Bangladesh" ➔ এটি একটি String। তাই Number.isFinite("Bangladesh") হবে false (কারণ এটি কোনো সংখ্যা নয়)।
+
+10 (Bangladesh-এর দৈর্ঘ্য) ➔ এটি একটি Number। তাই Number.isFinite(10) হবে true (কারণ ১০ একটি সসীম সংখ্যা)।
+
+
 
 // সসীম (Finite) - নির্দিষ্ট মান আছে
 console.log(isFinite(500)); 
@@ -355,20 +393,36 @@ let res7 = Number.isFinite("100");     // false (কারণ এটি String, 
 let res8 = Number.isFinite(true);      // false (কারণ এটি Boolean)
 
 
+Number.isFinite() মেথডে নাম্বার (Number) টাইপ ছাড়া অন্য যেকোনো ডাটা টাইপ দিলে সবসময় false আসবে।
 
-গ্লোবাল isFinite() আর Number.isFinite() এর পার্থক্য
-এই দুটি নিয়ে অনেকে প্যাঁচ লাগিয়ে ফেলে, তাই পার্থক্যটি ভালোভাবে জেনে রাখা দরকার:
+কারণ Number.isFinite() কোনো টাইপ রূপান্তর (Type Conversion) করে না। এটি অত্যন্ত কঠোরভাবে দুটি জিনিস চেক করে:
 
-গ্লোবাল isFinite("50"): এটি একটু দয়ালু। সে দেখে সামনে "50" টেক্সট আছে, সে একে জোর করে নম্বর 50 বানিয়ে নিয়ে true বানিয়ে দেয়।
+মানটিকে অবশ্যই Number টাইপ হতে হবে।
 
-Number.isFinite("50"): এটি খুব কড়া। সে দেখে এটি নম্বর নয় বরং স্ট্রিং/টেক্সট, তাই সে একে কোনো সুযোগ না দিয়ে সরাসরি false বলে দেয়।
+সেই নাম্বারটিকে সসীম (Finite) হতে হবে (অর্থাৎ Infinity, -Infinity, বা NaN হওয়া যাবে না)।
 
 
-// Global isFinite() - স্ট্রিংকে নম্বরে কনভার্ট করার চেষ্টা করে
-console.log(isFinite("100"));        // true (কারণ "100" কে সংখ্যা 100 এ বদলে নেয়)
+// ১. শুধু সসীম সংখ্যার ক্ষেত্রে true
 
-// Number.isFinite() - কঠোরভাবে টাইপ চেক করে (Strict Check)
-console.log(Number.isFinite("100")); // false (কোনো কনভার্সন করে না)
+Number.isFinite(100);       // true (পূর্ণসংখ্যা)
+Number.isFinite(-45.5);     // true (ঋণাত্মক দশমিক)
+Number.isFinite(0);         // true
+Number.isFinite(Math.PI);   // true (3.14159...)
+
+
+
+// ২. নাম্বার টাইপ কিন্তু অসীম/অবৈধ সংখ্যা (false)
+console.log(Number.isFinite(Infinity));   // false
+console.log(Number.isFinite(NaN));        // false
+
+// ❌ ৩. নাম্বার ছাড়া বাকি সব ডাটা টাইপ (সবসময় false)
+console.log(Number.isFinite("100"));      // false (String)
+console.log(Number.isFinite("Bangladesh"));// false (String)
+console.log(Number.isFinite(true));       // false (Boolean)
+console.log(Number.isFinite(null));       // false (Null)
+console.log(Number.isFinite(undefined));  // false (Undefined)
+console.log(Number.isFinite([1, 2]));     // false (Array)
+console.log(Number.isFinite({a: 1}));     // false (Object)
 
 
 
@@ -397,6 +451,61 @@ console.log(calculateTotal(Infinity, 2));
 // Output: "Invalid input! Please enter a valid number."
 
 
+
+গ্লোবাল isFinite() আর Number.isFinite() এর পার্থক্য
+
+এই দুটি নিয়ে অনেকে প্যাঁচ লাগিয়ে ফেলে, তাই পার্থক্যটি ভালোভাবে জেনে রাখা দরকার:
+
+গ্লোবাল isFinite("50"): এটি একটু দয়ালু। সে দেখে সামনে "50" টেক্সট আছে, সে একে জোর করে নম্বর 50 বানিয়ে নিয়ে true বানিয়ে দেয়।
+
+Number.isFinite("50"): এটি খুব কড়া। সে দেখে এটি নম্বর নয় বরং স্ট্রিং/টেক্সট, তাই সে একে কোনো সুযোগ না দিয়ে সরাসরি false বলে দেয়।
+
+
+// Global isFinite() - স্ট্রিংকে নম্বরে কনভার্ট করার চেষ্টা করে
+console.log(isFinite("100"));        // true (কারণ "100" কে সংখ্যা 100 এ বদলে নেয়)
+
+// Number.isFinite() - কঠোরভাবে টাইপ চেক করে (Strict Check)
+console.log(Number.isFinite("100")); // false (কোনো কনভার্সন করে না)
+
+
+
+🧪 কোন কোন ক্ষেত্রে isFinite() কাজ করে (true দেয়)?
+
+
+// ১. স্ট্রিং সংখ্যা (Numeric Strings)
+console.log(isFinite("100"));       // true (কারণ "100" -> 100)
+console.log(isFinite("12.34"));     // true (কারণ "12.34" -> 12.34)
+
+// ২. বুলিয়ান মান (Booleans)
+console.log(isFinite(true));        // true (কারণ true -> 1)
+console.log(isFinite(false));       // true (কারণ false -> 0)
+
+// ৩. খালি মান বা খালি স্ট্রিং (Null & Empty String)
+console.log(isFinite(null));        // true (কারণ null -> 0)
+console.log(isFinite(""));          // true (কারণ "" -> 0)
+
+// ৪. খালি অ্যারে (Empty Array)
+console.log(isFinite([]));          // true (কারণ [] -> 0)
+console.log(isFinite([5]));         // true (কারণ [5] -> 5)
+
+
+❌ কোন কোন ক্ষেত্রে false দেয়?
+
+// ১. সাধারণ টেক্সট (অক্ষরযুক্ত স্ট্রিং)
+console.log(isFinite("Bangladesh")); // false (কারণ এটি NaN এ রূপান্তর হয়)
+
+// ২. Undefined
+console.log(isFinite(undefined));    // false (কারণ undefined -> NaN)
+
+// ৩. একের অধিক উপাদানযুক্ত অ্যারে বা অবজেক্ট
+console.log(isFinite([1, 2]));       // false (কারণ [1,2] -> NaN)
+console.log(isFinite({ key: 100 })); // false (কারণ Object -> NaN)
+
+// ৪. অসীম সংখ্যা বা সরাসরি NaN
+console.log(isFinite(Infinity));     // false
+console.log(isFinite(NaN));          // false
+
+  
 
 
 ১. গড় বা রেটিং হিসাব করা (Division by Zero ঠেকানো)
@@ -459,6 +568,7 @@ console.log(processWithdrawal(5000, "1000"));
 // ৩. ভুল ডেটা বা ফাঁকা থাকলে (যেমন null বা undefined পাঠালে)
 console.log(processWithdrawal(5000, undefined)); 
 // Output: "Transaction failed! Please enter a valid amount."
+
 
 
 
@@ -606,6 +716,7 @@ Number.isNaN() হলো জাভাস্ক্রিপ্টের একট
 এটি কেবল true অথবা false রিটার্ন করে।
 
 📌 Number.isNaN() কীভাবে কাজ করে?
+  
 এটি মেথড হিসেবে ২টি শর্ত কঠোরভাবে পরীক্ষা করে:
 
 ইনপুটটির ডাটা টাইপ Number হতে হবে।
@@ -780,7 +891,7 @@ console.log(filterValidScores(apiData));
 
 BigInt হলো জাভাস্ক্রিপ্টের (ES2020 তে আসা) একটি প্রিমিয়ার বা বিশেষ Primitive Data Type।
 এর মূল কাজ হলো—সাধারণ Number টাইপের সীমার বাইরের অত্যন্ত বিশাল পূর্ণসংখ্যা (Large Integer) নিয়ে নির্ভুলভাবে হিসাব-নিকাশ করা।কেন BigInt প্রয়োজন? 
-(সমস্যা ও সমাধান)জাভাস্ক্রিপ্টের সাধারণ Number টাইপ সর্বাধিক $2^{53} - 1$ বা 9007199254740991 (যা Number.MAX_SAFE_INTEGER) পর্যন্ত পূর্ণসংখ্যার হিসাব নির্ভুলভাবে করতে পারে।
+(সমস্যা ও সমাধান)জাভাস্ক্রিপ্টের সাধারণ Number টাইপ সর্বাধিক 2^53 - 1 বা 9007199254740991 (যা Number.MAX_SAFE_INTEGER) পর্যন্ত পূর্ণসংখ্যার হিসাব নির্ভুলভাবে করতে পারে।
 
 
 // সাধারণ Number এর সীমাবদ্ধতা:
@@ -883,6 +994,8 @@ let randomNum = Math.floor(Math.random() * 10) + 1;
 console.log(`Random Number (1-10): ${randomNum}`);
 
 
+
+
 💡 বোনাস: String-কে Number বানিয়ে Math মেথড ব্যবহার
 কখনো কখনো নিখুঁত হিসেব করতে স্ট্রিংকে আগে parseInt() বা parseFloat() দিয়ে সংখ্যা বানিয়ে নেওয়া ভালো প্র্যাকটিস:
 
@@ -892,3 +1005,21 @@ let strNum = "12.3456";
 let parsedNum = parseFloat(strNum);
 
 console.log(`Result: ${Math.round(parsedNum)}`); // Output: Result: 12
+
+
+Math.round()-এর প্রধান কাজ হলো যেকোনো দশমিক সংখ্যাকে তার সবচেয়ে কাছের পূর্ণসংখ্যায় (Nearest Integer) রূপান্তর করা।
+
+দশমিকের পর .5 বা তার বেশি থাকলে: এটি সংখ্যাটিকে ওপরের পূর্ণসংখ্যায় বাড়িয়ে দেয়।
+
+দশমিকের পর .5-এর কম থাকলে: এটি দশমিকের পরের অংশ বাদ দিয়ে নিচের পূর্ণসংখ্যাটি রেখে দেয়।Math.round()-এর প্রধান কাজ হলো যেকোনো দশমিক সংখ্যাকে তার সবচেয়ে কাছের পূর্ণসংখ্যায় (Nearest Integer) রূপান্তর করা।
+
+দশমিকের পর .5 বা তার বেশি থাকলে: এটি সংখ্যাটিকে ওপরের পূর্ণসংখ্যায় বাড়িয়ে দেয়।
+
+দশমিকের পর .5-এর কম থাকলে: এটি দশমিকের পরের অংশ বাদ দিয়ে নিচের পূর্ণসংখ্যাটি রেখে দেয়।
+
+let strNum = "12.3456";
+
+let parsedNum = parseFloat(strNum); // "12.3456" স্ট্রিংটি 12.3456 সংখ্যায় রূপান্তরিত হলো
+console.log(`Result: ${Math.round(parsedNum)}`); // Output: Result: 12
+
+Math.round() দশমিকের পরের কোনো সংখ্যা রাখে না—এটি দশমিক তুলে দিয়ে সব সময় একটি নিখুঁত পূর্ণসংখ্যা (Integer) বানিয়ে দেয়।
